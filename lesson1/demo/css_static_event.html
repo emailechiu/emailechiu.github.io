@@ -8,7 +8,7 @@ p {
 }
 .eye {
     background-color:blue;
-    width:10%;
+    width:30%;
     height:20%;
     border-radius: 50%;
 }
@@ -23,7 +23,7 @@ p {
 #head {
     width:30%;
     height:30%;
-    border-radius: 15%;
+    border-radius: 50%;
     background-color: #dadada;
     position: absolute;
     left: 33%;
@@ -77,12 +77,12 @@ p {
 </style>                                     
 <div id="robot">
 <div id="head">
-    <div class="eye" id="righteye" onclick=function() {#lefteye.style.height='100%'}></div>
+    <div class="eye" id="righteye" onMouseover='document.getElementById("lefteye").style.height="5%"' onMouseout='document.getElementById("lefteye").style.height="20%"'}></div>
     <div class="eye" id="lefteye"></div>
     <div id="nose"></div>
     <div id="mouth"></div>
 </div>
 <div class="arm" id="rightarm"></div>
-<div id="body"><p>I &lt;3 JS!</p></div>
+<div id="body"><p>Am I handsome? I need some exercise! </p></div>
 <div class="arm" id="leftarm"></div>
 </div>

@@ -43,6 +43,31 @@ function bounce(e) {
   })
 }
 
+function plot(func) {
+  var canvas= document.getElementById("math_func")
+  var ctx=canvas.getContext("2d")
+  ctx.translate(0,canvas.height/2)  
+  ctx.lineWidth=canvas.height/2*0.01
+  ctx.strokeStyle="white"
+  ctx.moveTo(0,canvas.height/2*func(0))
+  for (var x=0; x<=1; x+=1/25) {
+	ctx.lineTo(canvas.width*x,canvas.height/2*func(x))
+        ctx.stroke()
+ }
+  ctx.translate(0,-canvas.height/2)  
+}
+
+function type(e) {
+  var str = e.innerHTML
+  animate({
+    delay: 40,
+    duration: 3200,
+    //delta: function(progress) {return {x:progress+ Math.sin(progress*2*Math.PI)/2,y:0}},
+    delta: function(progress) {return {x:6*progress - 15* Math.pow(progress,2) +10* Math.pow(progress,3),y:0}},
+    step: function(delta) { e.innerHTML = str.substr(0,delta.x * str.length) }
+   })
+}
+
 function ellipse(e) {
   var from={x:0,y:0}
   var to = {x:100,y:200}
@@ -98,9 +123,11 @@ function toyellow(e) {
 }
 
 </script>
-<p id=ball onclick="ellipse(this)"></p>
-<p id=bg onclick="bounce(this)">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat</p>
-<img src="soccer.png" id=fg onclick="bounce(this)">
-<div onclick="move_animate(this)" class=a></div>
+<p id=ball onclick="ellipse(this)">Click to move in circle</p>
+<p id=bg onclick="type(this)">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat</p>
+<img src="soccer.png" id=fg onclick="bounce(this)">drop</img>
+<div onclick="move_animate(this)" class=a>bounce</div>
+<canvas id=math_func width=300px height=300px style="background:black" onclick="plot(function(x) {return Math.pow(x,3)})"></canvas>
+
 
     
