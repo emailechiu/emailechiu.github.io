@@ -1,11 +1,9 @@
+bot building: http://www.make-digital.com/make/vol12/?pg=150#pg150
+geometry
+python
+minecraft
 https://github.com/walterhiggins/ScriptCraft/blob/master/docs/YoungPersonsGuideToProgrammingMinecraft.md
 http://eloquentjavascript.net/16_canvas.html
-https://docs.python.org/3.5/library/turtle.html
 https://arghbox.wordpress.com/2013/06/13/programming-minecraft-pi-with-python-early-draft/
 https://sites.google.com/a/pythonlake.com/www/python
-https://github.com/login
-https://www.codeacademy.com
-http://www.w3schools.com/
-https://www.khanacademy.org/
-http://www.learnpython.org
 https://www.raspberrypi.org/learning/getting-started-with-minecraft-pi/
