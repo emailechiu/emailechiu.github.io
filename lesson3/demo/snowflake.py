@@ -6,6 +6,7 @@
 # http://mekanizmalar.com/cardan_gear.html
 
 import turtle,math,random,canvasvg
+print("Content-type:text/html\n")
 def drawRhombus(t,step,acute_angle):
   sides=4
   #start_angle= orientation_angle + acute_angle/2

@@ -7,6 +7,8 @@
 
 import turtle,math,random
 from canvasvg import *
+print("Content-type:text/html\n")
+
 def drawLogo():
  colors = ['navy','red','purple','blue','green','magenta','yellow']
  radius = 100
