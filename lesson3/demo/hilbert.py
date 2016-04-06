@@ -3,19 +3,43 @@ from math import *
 
 def Positive(R,r,g,b):
   if R==0.5:
-      color(r,cg,cb)
+      color(r,g,b)
       stamp()
   else:
       fd(R*factor)
-      Positive(R/2,r+1,g,b)
+      Positive(R/2,(r+b)/2,(g+b)/2,b)
       bk(R*factor)
+
       lt(120)
       fd(R*factor)
-      Positive(R/2,r,g+1,b)
+      Positive(R/2,r,(r+g)/2,(r+b)/2)
       bk(R*factor)
+
       lt(120)
       fd(R*factor)
-      Positive(R/2,r,g,b+1)
+      Positive(R/2,(g+b)/2,g,(r+g)/2)
+      bk(R*factor)
+      lt(120)
+
+def Positive_initial(R,r,g,b,d):
+  if R==0.5:
+      color(r,g,b)
+      stamp()
+  else:
+      fd(R*factor)
+      Positive(R/2,r+R/size*(d%3==0),g+R/size*((d+1)%3==0),b+R/size*((d+2)%3==0),d)
+      bk(R*factor)
+
+      lt(120)
+      fd(R*factor)
+      d+=1
+      Positive(R/2,r+R/size*(d%3==0),g+R/size*((d+1)%3==0),b+R/size*((d+2)%3==0),d)
+      bk(R*factor)
+
+      lt(120)
+      fd(R*factor)
+      d+=1
+      Positive(R/2,r+R/size*(d%3==0),g+R/size*((d+1)%3==0),b+R/size*((d+2)%3==0),d)
       bk(R*factor)
       lt(120)
 
@@ -44,7 +68,7 @@ shape('triangle')
 size=32
 factor=20/sqrt(3)
 if 1:
-    Positive(size/2,0,0,0)
+    Positive(size/2,1,1,1)
 
 if 0:
     shapesize(size,size)
