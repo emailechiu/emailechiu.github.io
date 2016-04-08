@@ -27,19 +27,19 @@ def Positive_initial(R,r,g,b,d):
       stamp()
   else:
       fd(R*factor)
-      Positive(R/2,r+R/size*(d%3==0),g+R/size*((d+1)%3==0),b+R/size*((d+2)%3==0),d)
+      Positive_initial(R/2,r+R/size*(d%3==0),g+R/size*((d+1)%3==0),b+R/size*((d+2)%3==0),d)
       bk(R*factor)
 
       lt(120)
       fd(R*factor)
       d+=1
-      Positive(R/2,r+R/size*(d%3==0),g+R/size*((d+1)%3==0),b+R/size*((d+2)%3==0),d)
+      Positive_initial(R/2,r+R/size*(d%3==0),g+R/size*((d+1)%3==0),b+R/size*((d+2)%3==0),d)
       bk(R*factor)
 
       lt(120)
       fd(R*factor)
       d+=1
-      Positive(R/2,r+R/size*(d%3==0),g+R/size*((d+1)%3==0),b+R/size*((d+2)%3==0),d)
+      Positive_initial(R/2,r+R/size*(d%3==0),g+R/size*((d+1)%3==0),b+R/size*((d+2)%3==0),d)
       bk(R*factor)
       lt(120)
 
@@ -68,7 +68,7 @@ shape('triangle')
 size=32
 factor=20/sqrt(3)
 if 1:
-    Positive(size/2,1,1,1)
+    Positive_initial(size/2,0,0,0,0)
 
 if 0:
     shapesize(size,size)
@@ -86,5 +86,5 @@ if 0:
     Negative(size/2)
     update()
       
-      
+exitonclick()     
 
