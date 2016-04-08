@@ -1,5 +1,5 @@
 from turtle import *
-speed(1)
+tracer(0)
 ht()
 
 def replace(seq,replacementRules,n):
@@ -12,7 +12,7 @@ def replace(seq,replacementRules,n):
   return result
 
 
-class koch():
+class koch_snowflake():
   def __init__(self):
     self.replacementRules={"F":"F-F+F-F"}
     self.axiom="F+F+F+"    
@@ -28,21 +28,21 @@ class koch():
       for element in commands:
           rules[element]()
     drawing=replace(self.axiom,self.replacementRules,1)
+    print(drawing)
     draw(drawing,rules)
     update()
-    #exitonclick() 
 
-class triangle():
+class hilbert_triangle():
   def __init__(self):
-    self.replacementRules={".":"F.B+F.B+F.B+"}
+    self.replacementRules={".":"F.B+F.B+F.B+","F":"FF","B":"BB"}
     self.axiom="."    
 
   def display(self):
     shape('triangle')
     def F():
-        fd(11.55*2)
+        fd(11.55)
     def B():
-        bk(11.55*2)
+        bk(11.55)
     def l():
         lt(120)
     def s():
@@ -51,13 +51,42 @@ class triangle():
     def draw(commands,rules):
       for element in commands:
           rules[element]() 
-    drawing=replace(self.axiom,self.replacementRules,1)
+    drawing=replace(self.axiom,self.replacementRules,3)
     print(drawing)
     draw(drawing,rules)
     update()
-    #exitonclick() 
 
 
-#koch().display()
-triangle().display()
+class tree():
+  def __init__(self):
+    self.replacementRules={".":"F-F.B+F.B-B","F":"FF","B":"BB"}
+    self.axiom="."    
+
+  def display(self):
+    shape('triangle')
+    shapesize(0.25,0.25,0.5)
+    def F():
+        fd(11.55)
+    def B():
+        bk(11.55)
+    def l():
+        lt(60)
+    def r():
+        rt(120)
+    def s():
+        stamp()
+    rules={".":s,"+":r,"-":l,"F":F,"B":B}
+    def draw(commands,rules):
+      for element in commands:
+          rules[element]() 
+    drawing=replace(self.axiom,self.replacementRules,3)
+    print(drawing)
+    draw(drawing,rules)
+    update()
+
+
+#koch_snowflake().display()
+#hilbert_triangle().display()
+tree().display()
+exitonclick() 
     
