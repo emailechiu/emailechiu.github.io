@@ -1,7 +1,11 @@
 from turtle import *
 from math import *
-speed(0)
+tracer(0)
 ht()
+def jump(d):
+  pu()
+  fd(d)
+  pd() 
 
 def replace(seq,replacementRules,n):
   result=seq
@@ -11,43 +15,6 @@ def replace(seq,replacementRules,n):
         newseq = newseq + replacementRules.get(element,element)
     result=replace(newseq,replacementRules,n-1)
   return result
-
-class Tamil_ethno():
-  def __init__(self):
-    #self.replacementRules={".":"B","B":"--R-G+.+G+.+G+.+G+.++----R--"}
-    self.replacementRules={"B":"--R-G+B+G+B+G+B+G+++----R--"}
-    self.axiom="-G+B+G+B+G+B+G+B++"  
-    #self.replacementRules={"S":"LLLL","L":"+G.+",".":"B","B":"-RS--R-"}
-    #self.axiom="S"  
-    self.depth= 2
-  def display(self):
-    factor=pow(2,4-self.depth)
-    shapesize(0.25)
-    def G():
-        pencolor('green')
-        fd(11.55*factor)        
-    def R():
-        pencolor('red')
-        fd(11.55*factor)
-    def B():
-        pencolor('black')
-        circle(factor)
-    def l():
-        lt(45)
-    def r():
-        rt(45)
-    def s():
-        stamp()
-    rules={"G":G,"B":B,"R":R,"-":l,"+":r,".":s}
-    def draw(commands,rules):
-      for element in commands:
-          rules[element]() 
-    drawing=replace(self.axiom,self.replacementRules,self.depth)
-    print(drawing)
-    draw(drawing,rules)
-    update()
-
-
 
 class koch_snowflake():
   def __init__(self):
@@ -88,8 +55,8 @@ class hilbert_triangle():
     def draw(commands,rules):
       for element in commands:
           rules[element]() 
-    drawing=replace(self.axiom,self.replacementRules,3)
-    print(drawing)
+    drawing=replace(self.axiom, self.replacementRules,3)
+    print(drtwing)
     draw(drawing,rules)
     update()
 
@@ -150,7 +117,6 @@ class branches():
 #koch_snowflake().display()
 #hilbert_triangle().display()
 #tree().display()
-#branches().display()
-Tamil_ethno().display()
+branches().display()
 exitonclick() 
     
