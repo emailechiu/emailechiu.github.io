@@ -53,6 +53,7 @@ def move_gears():
    c.fd(Vcr)
    c.lt(Ocr)
    c.tilt(Ocs+Ocr)
+   c.stamp()
    #print(Ocr," ",Vcr)
    update()
    ontimer(move_gears,100)
