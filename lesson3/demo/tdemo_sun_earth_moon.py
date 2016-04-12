@@ -63,8 +63,7 @@ class GravSys(object):
             v = self.planets[1].vel
             d = (0.92*fy/abs(v))*v
             x, y = p - d
-            s.setworldcoordinates(x-fx,y-fy,
-                                  x+fx,y+fy)
+            #s.setworldcoordinates(x-fx,y-fy, x+fx,y+fy)
             if i % 5 == 0:
                 s.update()
             
@@ -90,8 +89,8 @@ class Star(Turtle):
         return a
     def step(self):
         self.setpos(self.pos() + self.dt*self.vel)
-        if self != sun:
-            self.setheading(self.towards(sun))
+        #if self != sun:
+        #    self.setheading(self.towards(sun))
         self.vel = self.vel + self.dt*self.acc()
 
 ## create compound yellow/blue turtleshape for planets
@@ -138,7 +137,7 @@ def main():
     moon = Star(mM, Vec2D(rE+rM,0.), Vec2D(0.,vE+vM), gs, "planet")
     moon.pencolor("blue")
     moon.shapesize(0.5)
-    gs.init()
+    #gs.init()
     gs.start()
     return "Done!"
 

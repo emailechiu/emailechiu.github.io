@@ -1,32 +1,80 @@
 #!/usr/bin/python3
 from turtle import *
 from math import *
+tracer(10)
+speed(0)
+G = 6.67e-11
 AU=3e8*60*8.31
 TU=365*24*3600
-TU=1
+#TU=1
 Oe = 2*pi/TU
 Oem = 2*pi/TU*13
-Ve = Oe * Re
-V
-GMs=pow(AU,3)*pow(Oe,2)
-GMe=pow(AU/388,3)*pow(Oem,2)
-Rm=1.28*3e8
+Rem=1.28*3e8
 Re=AU
-print(GMs/GMe)
-setworldcoordinates(-AU,-AU,AU,AU)
-s=Turtle(shape='circle');s.color('yellow')
-e=Turtle(shape='circle');e.color('blue')
-m=Turtle(shape='circle');m.color('purple')
-e.goto(0,-Re)
-#e.circle(Re)
-m.goto(0,-Re-Rm)
-def move():
-    rms = s.pos()-m.pos()
-    rme = e.pos()-m.pos()
-    res = s.pos()-e.pos()
-    Ae = GMs/pow(abs(res),3)*res 
-    Am = GMs/pow(abs(rms),3)*rms+GMe/pow(abs(rme),3)*rme
-    Ve=Ve + 
-    Vem=Vem+G*Me/D(e,m)
+Ve = Oe * Re
+Vem = Rem * Oem
+GMs=pow(AU,3)*pow(Oe,2)
+GMe=pow(AU/388,3)*pow(Oem,2) #1/333333 Ms
+GMm = GMe/81.632
+DT = 7200
+print(GMs," ",GMe," ",GMm," ",Ve," ",Vem)
+class Star(Turtle):
+    def __init__(self,p,v,GM,typ):
+        Turtle.__init__(self)
+        self.v=v
+        self.typ=typ
+        self.gm=GM
+        self.setpos(p)
+    def step(self,a,DT):
+        #print(self.typ," ",a," ",self.v)
+        self.v=self.v+a*DT
+        self.setpos(self.pos()+self.v*DT)
+
+class GravSys():
+    def __init__(self):
+        self.planets=[]
+        self.dt=DT
+    def init(self):
+       for i in self.planets:
+        i.v=i.v + 0.5*DT*self.acc(i)
+    def add(self,planet):
+        self.planets.append(planet)
+    def acc(self,planet):
+        a =Vec2D(0,0)
+        for i in self.planets:
+            d = i.pos() - planet.pos()
+            if (i!=planet): a=a+i.gm/pow(abs(d),3)*d
+        return a
+    def start(self): 
+      for j in range (10000):
+        for i in self.planets:
+            if (i.typ!='sun'): i.step(self.acc(i),self.dt)
+            x,y=i.pos()
+            if (i.typ=='earth'): setworldcoordinates(x-Rem,y-Rem,x+Rem,y+Rem)
+        
+
+def main():
+    setworldcoordinates(-1.5*AU,-1.5*AU,1.5*AU,1.5*AU)
+    s = Star(Vec2D(0,0),Vec2D(0,0),GMs,'sun')
+    s.shapesize(1.8)
+    s.color('yellow')
+    s.shape('circle')
+    e = Star(Vec2D(0,-Re),Vec2D(Ve,0),GMe,'earth')
+    e.shapesize(0.8)
+    e.color('blue')
+    e.shape('circle')
+    m = Star(Vec2D(0,-Re+Rem),Vec2D(Ve+Vem,0),GMm,'moon')
+    m.shapesize(0.5)
+    m.color('purple')
+    m.shape('circle')
+    gs=GravSys()
+    gs.add(s)
+    gs.add(e)
+    gs.add(m)
+    #gs.init()
+    gs.start()
+    update()
 
 
+
+main()
