@@ -63,7 +63,8 @@ class GravSys(object):
             v = self.planets[1].vel
             d = (0.92*fy/abs(v))*v
             x, y = p - d
-            #s.setworldcoordinates(x-fx,y-fy, x+fx,y+fy)
+            s.setworldcoordinates(x-fx,y-fy, x+fx,y+fy)
+            #s.setworldcoordinates(x-rM,y-rM, x+rM,y+rM)
             if i % 5 == 0:
                 s.update()
             
@@ -121,11 +122,11 @@ def createPlanetShape():
 def main():
     global s, sun
     s = Screen()
-    s.setup(800, 600) 
-    s.screensize(750, 550)
+    #s.setup(800, 600) 
+    #s.screensize(750, 550)
     createPlanetShape()
     ## setup gravitational system
-    s.setworldcoordinates(-3.e11, -2.25e11, 3.e11, 2.25e11)
+    s.setworldcoordinates(-3.e11, -3e11, 3.e11, 3e11)
     gs = GravSys()
     sun = Star(mS, Vec2D(0.,0.), Vec2D(0.,0.), gs, "circle")
     sun.color("yellow")

@@ -17,6 +17,7 @@ GMs=pow(AU,3)*pow(Oe,2)
 GMe=pow(AU/388,3)*pow(Oem,2) #1/333333 Ms
 GMm = GMe/81.632
 DT = 7200
+fx = 1.2e10
 print(GMs," ",GMe," ",GMm," ",Ve," ",Vem)
 class Star(Turtle):
     def __init__(self,p,v,GM,typ):
@@ -49,21 +50,23 @@ class GravSys():
       for j in range (10000):
         for i in self.planets:
             if (i.typ!='sun'): i.step(self.acc(i),self.dt)
-            x,y=i.pos()
-            if (i.typ=='earth'): setworldcoordinates(x-Rem,y-Rem,x+Rem,y+Rem)
+            if (i.typ=='earth'): 
+               x,y=i.pos()-0.92*3/4*fx/abs(i.v)*i.v
+               setworldcoordinates(x-fx,y-3/4*fx,x+fx,y+3/4*fx)
+               #setworldcoordinates(x-Rem,y-Rem,x+Rem,y+Rem)
         
 
 def main():
-    setworldcoordinates(-1.5*AU,-1.5*AU,1.5*AU,1.5*AU)
+    setworldcoordinates(-2*AU,-2*2*AU,2*AU,2*AU)
     s = Star(Vec2D(0,0),Vec2D(0,0),GMs,'sun')
     s.shapesize(1.8)
     s.color('yellow')
     s.shape('circle')
-    e = Star(Vec2D(0,-Re),Vec2D(Ve,0),GMe,'earth')
+    e = Star(Vec2D(Re,0),Vec2D(0,Ve),GMe,'earth')
     e.shapesize(0.8)
     e.color('blue')
     e.shape('circle')
-    m = Star(Vec2D(0,-Re+Rem),Vec2D(Ve+Vem,0),GMm,'moon')
+    m = Star(Vec2D(Re+Rem,0),Vec2D(0,Ve+Vem),GMm,'moon')
     m.shapesize(0.5)
     m.color('purple')
     m.shape('circle')
