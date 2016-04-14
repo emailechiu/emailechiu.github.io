@@ -5,7 +5,8 @@
 # http://www.printable-math-worksheets.com/celtic-design.html
 # http://mekanizmalar.com/cardan_gear.html
 
-import turtle,math,random,canvasvg
+import random,canvasvg
+from turtle import *
 def drawSpiral(angle_start=90,angle_ratio=0,step_start=100,step_ratio=0.01):
  colors = ['navy','red','purple','blue','green','magenta','yellow']
  while (angle_start!=0):
@@ -14,18 +15,27 @@ def drawSpiral(angle_start=90,angle_ratio=0,step_start=100,step_ratio=0.01):
   angle=angle_start
   step_delta= step_start*step_ratio
   angle_delta=angle_start*angle_ratio
-  turtle.clearscreen()
-  turtle.bgcolor("black")
-  turtle.tracer(0,0)
-  t=turtle.Pen()
+  clearscreen()
+  bgcolor("black")
+  tracer(0,0)
+  t=Pen()
   for x in range(100):
     t.color(random.choice(colors))
     t.forward(step) 
     t.left(angle)
     step+=step_delta
     angle+=angle_delta
-  turtle.update()
-  canvasvg.saveall("spiral.svg",turtle.Screen()._canvas)
-  turtle.exitonclick()
+  update()
+  canvasvg.saveall("spiral.svg",Screen()._canvas)
+  exitonclick()
 
-drawSpiral()
+    
+
+def drawcockscrew():
+   for i in range(72):
+      fd(20)
+      rt(10)
+      setpos(pos()+Vec2D(5,0))
+
+drawcockscrew()
+onclick(drawSpiral())
