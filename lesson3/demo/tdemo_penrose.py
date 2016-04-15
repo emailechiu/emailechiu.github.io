@@ -104,12 +104,12 @@ def draw(l, n, th=2):
         stamp()
 
 def sun(l, n):
-    for i in range(5):
+    for i in range(1):
         inflatekite(l, n)
         lt(72)
 
 def star(l,n):
-    for i in range(5):
+    for i in range(1):
         inflatedart(l, n)
         lt(72)
 
@@ -132,7 +132,7 @@ def start():
     makeshapes()
     resizemode("user")
 
-def test(l=200, n=4, fun=sun, startpos=(0,0), th=2):
+def test(l=200, n=2, fun=sun, startpos=(0,0), th=2):
     global tiledict
     goto(startpos)
     setheading(0)
@@ -153,7 +153,7 @@ def test(l=200, n=4, fun=sun, startpos=(0,0), th=2):
 
 def demo(fun=sun):
     start()
-    for i in range(8):
+    for i in range(5,6):
         a = clock()
         test(300, i, fun)
         b = clock()
@@ -165,15 +165,16 @@ def main():
     #title("Penrose-tiling with kites and darts.")
     mode("logo")
     bgcolor(0.3, 0.3, 0)
+    goto(-300,0)
     demo(sun)
-    sleep(2)
+    sleep(20)
+    goto(300,0)
     demo(star)
     pencolor("black")
     goto(0,-200)
     pencolor(0.7,0.7,1)
-    write("Please wait...",
-          align="center", font=('Arial Black', 36, 'bold'))
-    test(600, 8, startpos=(70, 117))
+    #write("Please wait...", align="center", font=('Arial Black', 36, 'bold'))
+    #test(600, 3, startpos=(70, 117))
     return "Done"
 
 if __name__ == "__main__":

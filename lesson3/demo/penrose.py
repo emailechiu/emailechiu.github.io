@@ -42,19 +42,19 @@ def tiledart(depth):
     if depth==0:
           shape('dart')
           shapesize(1)
-          color('black','yellow')
+          color('black','red')
           stamp()
     else:
-          tiledart(depth-1)
-          lt(36);fd(d*r**(-depth));rt(144);tilekite(depth-1);lt(144);bk(d*r**(-depth))
-          rt(36);fd(d*r**(-depth));lt(144);tilekite(depth-1);rt(144);bk(d*r**(-depth))
+          tilekite(depth-1)
+          lt(36);fd(d*r**(-depth));rt(180);tiledart(depth-1);lt(180);bk(d*r**(-depth));rt(36)
+          rt(36);fd(d*r**(-depth));rt(180);tiledart(depth-1);lt(180);bk(d*r**(-depth));lt(36)
 
-def tilekite(depth):
+def tilekite1(depth):
     #print(depth)
     if depth==0: 
           shape('kite')
           shapesize(1)
-          color('black','blue')
+          color('black','green')
           stamp()
     else: 
           tiledart(depth-1)
@@ -65,22 +65,48 @@ def tilekite(depth):
           lt(180)
           bk(d*r**(-depth))
 
-def tile():
-   ht()
-   for j in range(3): 
+def tilekite(depth):
+    #print(depth)
+    if depth==0: 
+          shape('kite')
+          shapesize(1)
+          color('black','green')
+          stamp()
+    else: 
+          lt(36);tiledart(depth-1);fd(d*r**(-depth)); rt(144);tilekite(depth-1);lt(144);bk(d*r**(-depth)); rt(36)
+          rt(36);tiledart(depth-1);fd(d*r**(-depth)); lt(144);tilekite(depth-1);rt(144);bk(d*r**(-depth)); lt(36)
+
+def sun(iter):
+   for j in range(iter): 
     reset()
+    pu()
     ht()
+    #goto(-300*(j-iter/2),0)
     for i in range(5):
       tilekite(j)
       lt(72)
     update()
     sleep(1)
       
- 
+def star(iter):
+   for j in range(iter):
+    reset()
+    pu()
+    ht()
+    #goto(+300*(j-iter/2),0)
+    for i in range(5):
+      tiledart(j)
+      lt(72)
+    update()
+    sleep(1)
+      
 tracer(0)
 register_shape('dart',dart())
 register_shape('kite',kite())
-tile()
+sun(5)
+sleep(2)
+reset()
+star(5)
 exitonclick()
 
 
