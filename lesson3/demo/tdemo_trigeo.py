@@ -97,7 +97,8 @@ def main():
         s.tracer(0)
         for t in triangles:
             t.setturn(phi)
-        s.tracer(1)
+        #s.tracer(1)
+        s.update()
     return "DONE!"
 
 if __name__ == "__main__":
