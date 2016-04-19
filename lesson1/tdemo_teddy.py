@@ -9,9 +9,10 @@ turtle graphics.
 """
 from turtle import *
 
+from canvasvg import *
 def main():
     mode("logo")
-    speed(10)
+    tracer(0) ###speed(10)
     shape("arrow")
     pensize(3)
     circle(66)
@@ -151,6 +152,8 @@ def main():
     pu()
     home()
     ht()
+    update()
+    saveall('teddy.svg',Screen()._canvas)
     return "DONE!"
 
 if __name__ == "__main__":

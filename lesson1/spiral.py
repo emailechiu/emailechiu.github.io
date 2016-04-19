@@ -7,7 +7,7 @@
 
 import random,canvasvg
 from turtle import *
-def drawSpiral(angle_start=90,angle_ratio=0,step_start=100,step_ratio=0.01):
+def drawSpiral(angle_start=90,angle_ratio=0,step_start=50,step_ratio=0.1):
  colors = ['navy','red','purple','blue','green','magenta','yellow']
  while (angle_start!=0):
   angle_start=int(input("Starting Angle? Concave>90: ")) 
@@ -19,7 +19,7 @@ def drawSpiral(angle_start=90,angle_ratio=0,step_start=100,step_ratio=0.01):
   bgcolor("black")
   tracer(0,0)
   t=Pen()
-  for x in range(100):
+  for x in range(20):
     t.color(random.choice(colors))
     t.forward(step) 
     t.left(angle)
@@ -37,5 +37,5 @@ def drawcockscrew():
       rt(10)
       setpos(pos()+Vec2D(5,0))
 
-drawcockscrew()
+#drawcockscrew()
 onclick(drawSpiral())

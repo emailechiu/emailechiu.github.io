@@ -1,4 +1,6 @@
+#!/usr/bin/python3
 from turtle import *
+from canvasvg import *
 def next(p,a=1,b=2,c=1,d=1):
    n=[a]
    for i in range(len(p)-1):
@@ -45,5 +47,6 @@ for i in range(8):
    rt(45)
 
 update()
+saveall('4d_cube.svg',Screen()._canvas)
 exitonclick()
 

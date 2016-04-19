@@ -1,5 +1,7 @@
+#!/usr/bin/python3
 from turtle import *
 from math import *
+from canvasvg import *
 mode("standard")
 tracer(0)
 n=5
@@ -82,9 +84,9 @@ def jumpto(d):
     goto(d)
     pd()
 
-for direction in [1]:
-    start=Vec2D(100,100)
-    end=Vec2D(200,200)
+for direction in [-1,1]:
+    start=Vec2D(50,50)
+    end=Vec2D(-100,-50)
     angle=90
     col=(direction/2+1/2,1/2-direction/2,0)
     arc(start,end,angle,direction,20,col)   # short arc
@@ -97,4 +99,5 @@ for direction in [1]:
 
 
 update()
+saveall('pattern.svg',Screen()._canvas)
 exitonclick() 
