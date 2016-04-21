@@ -145,4 +145,4 @@ register_shape("bear",S)
 
 update()
 saveall('teddy.svg',Screen()._canvas)
-#exitonclick() 
+exitonclick() 
