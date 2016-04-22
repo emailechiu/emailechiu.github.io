@@ -94,6 +94,14 @@ fd(30)
 register_shape('teardrop',get_poly())
 reset
 
+poly=((-30,0),(0,30),(30,0),(0,-30),(-30,0),(30,0),(0,30),(0,-30),(-30,0))
+poly=((0,30),(0,0),(-30,0),(0,30),(30,0),(0,-30))
+poly=((-30,30),(30,30),(30,-30),(-30,-30),(-30,30),(-20,30),(-20,-30),(-10,-30),(-10,30))
+poly=((-10,30),(-10,-30),(-30,-30),(-30,30),(30,30),(30,-30),(-10,-30),(-10,30))
+
+
+register_shape('circlecross',poly)
+reset
 
 mode("logo")
 s=Turtle(shape='sross')
@@ -113,6 +121,9 @@ update()
 q=Turtle(shape='teardrop')
 q.color('orange')
 print(q.get_shapepoly())
+
+r=Turtle(shape='circlecross')
+r.color('magenta')
 update()
 
 
