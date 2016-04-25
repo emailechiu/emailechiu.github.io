@@ -92,7 +92,7 @@ circle(-15,180)
 rt(45)
 fd(30)
 register_shape('teardrop',get_poly())
-reset
+reset()
 
 poly=((-30,0),(0,30),(30,0),(0,-30),(-30,0),(30,0),(0,30),(0,-30),(-30,0))
 poly=((0,30),(0,0),(-30,0),(0,30),(30,0),(0,-30))
@@ -101,7 +101,25 @@ poly=((-10,30),(-10,-30),(-30,-30),(-30,30),(30,30),(30,-30),(-10,-30),(-10,30))
 
 
 register_shape('circlecross',poly)
-reset
+reset()
+print('start of compound heading',heading())
+
+mode('standard')
+com=Shape("compound")
+
+begin_poly()
+circle(50)
+end_poly()
+com.addcomponent(get_poly(),'red','blue')
+
+
+begin_poly()
+circle(-20)
+end_poly()
+com.addcomponent(get_poly(),'blue','red')
+
+register_shape('dumbell',com)
+reset()
 
 mode("logo")
 s=Turtle(shape='sross')
@@ -126,5 +144,21 @@ r=Turtle(shape='circlecross')
 r.color('magenta')
 update()
 
+d=Turtle(shape='dumbell')
+
+for i in range(120):
+    pensize(i/12)
+    pencolor(i/120,0,1-i/120)
+    circle(i,15,1)
+
+fillcolor('green')
+pensize(1)
+for i in range(30):
+    circle(100)
+    rt(12)
+
+update()
+
+exitonclick()
 
 
