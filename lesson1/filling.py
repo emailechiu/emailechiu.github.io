@@ -107,12 +107,17 @@ print('start of compound heading',heading())
 mode('standard')
 com=Shape("compound")
 
+lt(90)
+fd(100)
+rt(90)
 begin_poly()
 circle(50)
 end_poly()
 com.addcomponent(get_poly(),'red','blue')
 
-
+rt(90)
+fd(200)
+lt(90)
 begin_poly()
 circle(-20)
 end_poly()
@@ -153,12 +158,32 @@ for i in range(120):
 
 fillcolor('green')
 pensize(1)
-for i in range(30):
+n=12
+begin_fill()
+for i in range(n):
     circle(100)
-    rt(12)
+    rt(360/n)
+end_fill()
+
+
+lt(90)
+fd(300)
+rt(90)
+fillcolor('green')
+n=12
+
+begin_fill()
+for i in range(n):
+    fd(50)
+    pu()
+    fd(90)
+    pd()
+    fd(50)
+    rt(360/n*7)
+end_fill()
 
 update()
 
-exitonclick()
+#exitonclick()
 
 
