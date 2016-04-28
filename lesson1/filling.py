@@ -169,6 +169,7 @@ end_fill()
 lt(90)
 fd(300)
 rt(90)
+bgcolor('red')
 fillcolor('green')
 n=12
 
