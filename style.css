@@ -1,0 +1,6 @@
+div { /*CSS for enlarged image on hover*/
+	background-color: yellow;
+        display: none; 
+}
+
+a:hover + div  {display:block;}

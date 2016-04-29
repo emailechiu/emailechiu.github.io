@@ -1,12 +1,74 @@
+<style>
+div { background-color: yellow; display: none; }
+a:hover + div  {display:block;}
+table {width:100%;table-layout:fixed;}
+th,td {text-align:left;padding:8px;vertical-align:bottom;word-wrap:normal;width:24%}
+.rh {width:70px;}
+tr:nth-child(even){background-color: #f2f2f2}
+</style>
+<!--link rel="stylesheet" href="style.css"-->
 <h1>Welcome to the lesson portal</h1>
-<a href=lesson1/index.html>Lesson1</a>
-<a href=lesson2/index.html>lesson2</a>
-<h2>Assignment</h2>
-<a href=https://www.ixl.com/math/grade-5>Finish Geometry Z.1-Z.33</a><br>
-<a href=https://www.ixl.com/math/grade-5>Finish T.1-T.6</a><br>
-<a href=lesson1/snowflake.svg>Draw this shape</a><br>
-<a href=lesson1/yinyang.svg>Draw this shape</a><br>
-<a href=lesson1/5_star.svg>Draw this shape in 5 lines of code</a><br>
-<a href=lesson1/4d_cube.svg>Draw this shape in less than 12 lines of code bonus for fewer lines</a><br>
-<h2>Resources</h2>
-<a href=resources.html>Reading Material</a>
+<a href=resources.html>Reading Material and References</a>
+<table>
+  <tr> 
+  <th class=rh>Lesson</th>
+  <th>Programming</th>
+  <th>Assignment</th>
+  <th>Math Games/Quizzes/Toys</th>
+  <th>Linux Admin</th>
+  </tr>
+  <tr>
+  <td class=rh><a href=lesson1/index.html>1</a></td>
+  <td>Turtle: fd rt lt circle pencolor shapesize shape<br> Python: for</td>
+  <td><a href=lesson1/wikipedia.svg>Draw in wikipedia.py</a></td>
+  <td>None</td>
+  <td>ls,more</td>
+  </tr>
+  <tr>
+  <td class=rh>2</td>
+  <td>Turtle: fillcolor begin_fill end_fill tracer update speed</td>
+  <td>
+      <a href=lesson1/yinyang.svg>Draw yinyang.py</a><div>you might need to try all 4 combinations of circle(+/-,+/-),think about how you can draw them quickly next time</div><br>
+      <a href=lesson1/5_star.svg>Draw 5_star.py with 5 lines</a><div>What should the angle for each turn? Try 360/5, 360/5*2,360/5*3, 360/5*4, 360/5*5, this page can give you hint: http://www.k6-geometric-shapes.com/pentagon-shape.html. Extra Challenge when you are done: what happens if you try to draw 6-star this way?</div><br>
+      <a href=lesson1/snowflake.svg>Draw in snowflake.py</a><br>
+      <a href=lesson1/4d_cube.svg>Draw in 4d_cube.py no more than 12 lines</a><br>
+  </td>
+  <td>
+      <a href=http://www.k6-geometric-shapes.com/polygons.html>Do you know all the angles inside these regular polygons?</a><br>
+      <a href=http://www.math-salamanders.com/2d-shapes-worksheets.html>5th Grade Shapes Worksheet on angles all 5</a><br>
+      <a href=https://www.ixl.com/math/grade-5>T.1-T.6 + Z.1-Z.33</a><br>
+      Mobius strip twisting and cutting
+  </td>
+  <td>vncserver setup</td>
+  </tr>
+  <tr>
+  <td class=rh>3</td>
+  <td>Turtle: bgcolor color pu pd pensize home goto pos seth bk write textinput numinput title<br> Python: if input print try except</td>
+  <td><a href=lesson1/6_star.svg>Draw in 6_star.py</a><div>first draw a regular hexagon, use pos() to get their position, then use goto to join them in the right order</div><br>
+      <a href=lesson1/teddy.svg>Draw in teddy.py</a><br>
+      <a href=add.out>Sum of integers from 1 to n in add.py</a>
+  </td>
+  <td><a href=http://www.math-salamanders.com/geometry-nets.html>print out the sheets,what are the number of edges? vertex? faces for each shape?</a></td>
+  <td>Remote access dyndns setup + printing,ifconfig,wc, man,cd,ps,sudo,top,tail,head,turtle manual page</td>
+  </tr>
+  <tr>
+  <td class=rh>4</td>
+  <td>Turtle: mode begin_poly end_poly get_poly get_shapepoly shapetransform register_shape Turtle clone st ht reset clear undo <br>Python: def</td>
+  <td>Define mycircle(radius,angle) using only fd and lt<br>
+      Define myjump(distance) <br>
+      <a href=lesson1/mill.svg>Moving windmill.py</a><br>
+      <a href=lesson1/spiral.svg>Draw in spiral.py, print total length<div>what does a circle need to do to become a spiral? bonus: figure out how to get pi=3.1415926?</div></a>
+  </td>
+  <td>yoyo's friend on rail</td>
+  <td>cat,less,nano,idle3,which,/var/www/html,/etc/bash.bashrc,/proc/cpuinfo,/proc/memory,/var/log/auth.log</td>
+  </tr>
+  <tr>
+  <td class=rh>5</td>
+  <td>Turtle:onclick onrelease ondrag exitonclick listen onkey onkeypress onscreenclick ontimer</td>
+  <td><a href=lesson1/colormixer.svg>Make your own paint.py</a><br>
+      <a href=lesson1/clock.svg>Moving analog clock.py</a><br>
+  </td>
+  <td>TBD</td>
+  <td>TBD</td>
+  </tr>
+</table> 

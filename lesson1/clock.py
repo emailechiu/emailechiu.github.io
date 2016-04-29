@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 from turtle import *
 from datetime import *
+from canvasvg import *
 mode("logo")
 clearscreen()
 tracer(0,0)
@@ -83,6 +84,7 @@ clockface()
 clockbg()
 clocktick()
 #face_rotate()
+saveall('clock.svg',Screen()._canvas)
 exitonclick()
 #done()
 
