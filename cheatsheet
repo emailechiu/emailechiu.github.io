@@ -1,2 +1,4 @@
 git fetch --all
 git reset --hard origin/master
+put vncserver under /etc/init.d
+sudo update-rc.d vncserver defaults

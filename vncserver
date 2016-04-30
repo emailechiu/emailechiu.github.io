@@ -1,0 +1,60 @@
+#!/bin/sh -e
+### BEGIN INIT INFO
+# Provides:          vncserver
+# Required-Start:    networking
+# Required-Stop:   
+# Default-Start:     3 4 5
+# Default-Stop:      0 6
+### END INIT INFO
+iptables -F
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+iptables -P OUTPUT ACCEPT
+iptables -A INPUT -i wlan0 -m state --state ESTABLISHED,RELATED -j ACCEPT
+iptables -A INPUT -i wlan0 -s 192.168.1.0/24 -j ACCEPT
+iptables -A INPUT -i wlan0 -s 139.0.0.0/8 -j ACCEPT
+iptables -A INPUT -i wlan0 -s 66.0.0.0/8 -j ACCEPT
+
+PATH="$PATH:/usr/bin/"
+
+# The Username:Group that will run VNC
+export USER="pi"
+#${RUNAS}
+
+# The display that VNC will use
+DISPLAY="1"
+
+# Color depth (between 8 and 32)
+DEPTH="16"
+
+# The Desktop geometry to use.
+#GEOMETRY="<WIDTH>x<HEIGHT>"
+#GEOMETRY="800x600"
+GEOMETRY="1024x768"
+#GEOMETRY="1280x1024"
+
+# The name that the VNC Desktop will have.
+NAME="my-vnc-server"
+
+OPTIONS="-name ${NAME} -depth ${DEPTH} -geometry ${GEOMETRY} :${DISPLAY}"
+
+. /lib/lsb/init-functions
+
+case "$1" in
+start)
+log_action_begin_msg "Starting vncserver for user '${USER}' on localhost:${DISPLAY}"
+su ${USER} -c "/usr/bin/vncserver ${OPTIONS}"
+;;
+
+stop)
+log_action_begin_msg "Stoping vncserver for user '${USER}' on localhost:${DISPLAY}"
+su ${USER} -c "/usr/bin/vncserver -kill :${DISPLAY}"
+;;
+
+restart)
+$0 stop
+$0 start
+;;
+esac
+
+exit 0
