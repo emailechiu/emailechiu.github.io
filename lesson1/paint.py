@@ -1,5 +1,10 @@
 from turtle import *
+ 
 class MyTurtle(Turtle):
+      def form(self,x,y):
+          pencolor(self.pencolor())         
+          pensize(self.pensize())
+          print(pencolor,pensize)
       def glow(self,x,y):
           self.fillcolor("yellow")
           self.shapesize(3)
@@ -16,6 +21,14 @@ class MyTurtle(Turtle):
       def move(self,x,y):
           self.fd(50)
           self.rt(60)
+
+def mypd(x,y):
+      pu()
+      goto(x,y)
+      pd()
+
+def mypu(x,y):
+      pu()
 
 
 MrRed = MyTurtle()
@@ -41,11 +54,14 @@ def f():
 listen()
 onkey(f,'a')
 #onscreenclick(addmore)
-MrRed.onclick(MrRed.glow)
-MrRed.onrelease(MrRed.unglow)
-MrGreen.onclick(MrGreen.move)
-MrGreen.onrelease(MrGreen.addmore)
-#MrBlue.ondrag(MrBlue.goto)
+MrRed.onclick(MrRed.form)
+MrRed.onrelease(MrRed.form)
+MrGreen.onclick(MrGreen.form)
+MrGreen.onrelease(MrGreen.form)
+MrBlue.onclick(MrBlue.form)
+MrBlue.ondrag(MrBlue.goto)
+onscreenclick(mypd)
+onrelease(mypu)
 ondrag(goto)
 done()
 
