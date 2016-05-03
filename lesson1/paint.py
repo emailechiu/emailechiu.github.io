@@ -1,10 +1,23 @@
 from turtle import *
+from canvasvg import *
  
 class MyTurtle(Turtle):
+      def __init__(self,col,size,x,y,shape):
+          Turtle.__init__(self)
+          self.color(col)
+          self.pensize(size*10)
+          self.shapesize(size)
+          self.pu()
+          self.goto(x,y)
+          self.shape(shape)
+          self.onclick(self.form)
       def form(self,x,y):
-          pencolor(self.pencolor())         
+          print("init to ",self.color(),self.shapesize(),self.pencolor(), self.pensize())
+          color(self.pencolor(),self.fillcolor()) # this sets pencolor as well as fillcolor
+          shapesize(self.pensize()/10)
           pensize(self.pensize())
-          print(pencolor,pensize)
+          shape(self.shape())
+          print("onclick set to ", color(), shapesize(),pencolor(),pensize())
       def glow(self,x,y):
           self.fillcolor("yellow")
           self.shapesize(3)
@@ -18,50 +31,31 @@ class MyTurtle(Turtle):
           newT.pd()
           newT.shape('turtle')
           newT.shapesize(1)
-      def move(self,x,y):
-          self.fd(50)
-          self.rt(60)
 
-def mypd(x,y):
+def jump(x,y):
       pu()
       goto(x,y)
       pd()
-
-def mypu(x,y):
-      pu()
-
-
-MrRed = MyTurtle()
-MrRed.pencolor('red')
-MrRed.pensize(10)
-MrRed.goto(-100,0)
-
-MrGreen=MyTurtle()
-MrGreen.pencolor('green')
-MrGreen.pensize(5)
-MrGreen.goto(0,100)
-
-MrBlue=MyTurtle()
-MrBlue.pencolor('blue')
-MrBlue.pensize(3)
-MrBlue.goto(100,0)
+      print("jump to",x,y,pencolor(),pensize())
 
 def f():
     fd(50)
     rt(60)
 
+def s():
+    saveall('paint.svg',Screen()._canvas)
 
+shape('circle')
 listen()
 onkey(f,'a')
-#onscreenclick(addmore)
-MrRed.onclick(MrRed.form)
-MrRed.onrelease(MrRed.form)
-MrGreen.onclick(MrGreen.form)
-MrGreen.onrelease(MrGreen.form)
-MrBlue.onclick(MrBlue.form)
-MrBlue.ondrag(MrBlue.goto)
-onscreenclick(mypd)
-onrelease(mypu)
+onkey(s,'s')
+onscreenclick(jump)
 ondrag(goto)
+
+MrRed = MyTurtle('red',2,-400,200,'circle')
+MrGreen = MyTurtle('green',1.5,-400,100,'triangle')
+MrBlue = MyTurtle('blue',1,-400,40,'square')
+MrPink = MyTurtle('pink',0.5,-400,10,'turtle')
+
 done()
 
