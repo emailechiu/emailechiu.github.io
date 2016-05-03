@@ -3,3 +3,19 @@ git reset --hard origin/master
 put vncserver under /etc/init.d
 sudo update-rc.d vncserver defaults
 put xstartup under ~/.vnc
+
+Install Pygame:
+# get pygame source code
+sudo apt-get install mercurial
+hg clone https://bitbucket.org/pygame/pygame
+cd pygame
+
+# install dependencies
+sudo apt-get install libsdl-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-ttf2.0-dev 
+sudo apt-get install libsmpeg-dev libportmidi-dev libavformat-dev libswscale-dev
+
+# build and install pygame
+python3 setup.py build
+sudo python3 setup.py install
+
+
