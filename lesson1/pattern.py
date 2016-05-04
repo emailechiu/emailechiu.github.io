@@ -4,66 +4,21 @@ from math import *
 from canvasvg import *
 mode("standard")
 tracer(0)
-n=5
-step=50
-
-###bear
-##begin_poly()
-##color("red","blue")
-##circle(step,360,20)
-##pu()
-##goto(3*step,0)
-##pd()
-##circle(step,360,20)
-##pu()
-##goto(1.5*step,0)
-##rt(90)
-##pd()
-##fd(step)
-##circle(step/4,180,10)
-##end_poly()
-##S=get_poly()
-##register_shape("bear",S)
-##b=Turtle(shape="bear")
-
-
-###circle inside square
-##fd(step)
-##begin_poly()
-##begin_fill()
-##color('yellow','blue')
-##circle(step,360,4)
-##pu()
-##lt(90)
-##fd(step/3)
-##rt(90)
-##pd()
-##circle(step/3,360,20)
-##end_fill()
-##end_poly
-##S=get_poly()
-##register_shape("donut",S)
-##x=Turtle(shape="donut")
-##fd(step)
-##bk(step*n)
-##
-##begin_fill()
-##color('yellow','blue')
-##begin_poly()
-##for j in range(1,n):
-##  print(j,"in ",pos())
-##  for i in range(n):
-##    fd(step)
-##    rt(360*j/n)
-##  print(j,"ou ",pos())
-##  #fd(step*2) 
-##  print(j,"out",pos())
-##end_fill()
-##end_poly()
-##S=get_poly()
-##register_shape("pentagon",S)  
-##t=Turtle(shape='pentagon')
-##
+mycolor=[0,0,0]
+ss=200
+ls=2*ss
+h=ss*10
+b=ss/2
+m=ss/4
+s=ss/6
+g=ss/60
+westminster=[(1,1,1,m,90),   #LFO
+             (-1,1,-1,b,30), #RFI
+             (1,1,1,s,90),   #LFO
+             (1,1,1,h,2),   #I
+             (1,1,-1,g,90)
+             
+    ]
 
 def arc(start,end,angle,direction=1,steps=20,col='red'):
     pencolor(col)
@@ -84,20 +39,58 @@ def jumpto(d):
     goto(d)
     pd()
 
-for direction in [-1,1]:
-    start=Vec2D(50,50)
-    end=Vec2D(-100,-50)
-    angle=90
-    col=(direction/2+1/2,1/2-direction/2,0)
-    arc(start,end,angle,direction,20,col)   # short arc
-    arc(start,end,360-angle,direction,20,col)   # short arc
-    arc(end,start,angle,direction,20,col) #long arc
-    arc(start,end,angle,direction,2,col)   # sharp segment
-    arc(end,start,360-angle,direction,2,col) #obtuse segment
-    center(start,end,angle,direction,col)
+def tracing(foot,direction,edge,radius=g,angle=90):
+    mycolor[1]=1-mycolor[1]
+    pencolor(mycolor)
+    circle(foot*edge*radius,direction*angle)
 
+def setupcanvas():
+    setup(2*ss,2*ls)
+    bgcolor('grey')
+    color('white')
+    fd(ss)
+    bk(ss*2)
+    fd(ss)
+    lt(90)
+    fd(ls)
+    bk(ls*2)
+    fd(ls)
+    pu()
+    goto(-ss/3,ls/8*7)
+    lt(45)
+    pd()
+    color('black')
+    
+def geom():   
+    for direction in [-1,1]:
+        start=Vec2D(50,50)
+        end=Vec2D(-100,-50)
+        angle=90
+        col=(direction/2+1/2,1/2-direction/2,0)
+        arc(start,end,angle,direction,20,col)   # short arc
+        arc(start,end,360-angle,direction,20,col)   # short arc
+        arc(end,start,angle,direction,20,col) #long arc
+        arc(start,end,angle,direction,2,col)   # sharp segment
+        arc(end,start,360-angle,direction,2,col) #obtuse segment
+        center(start,end,angle,direction,col)
 
+def render(pattern):
+    setupcanvas()
+    previous=pattern[0]
+    for i in pattern:
+        print(heading())
+        current=i
+        fc=current[0]-previous[0]
+        dc=current[1]-previous[1]
+        ec=current[2]-previous[2]
+        if fc!=0: pu();rt(90);fd(-fc*g);lt(90);pd()  #change foot
+        else:
+            if ec!=0: tracing(*previous);tracing(*current[0:3])
+        if dc!=0: rt(180) #change direction
+        tracing(*current)
+        previous=current[0:3]
 
+render(westminster)
 update()
-saveall('pattern.svg',Screen()._canvas)
+#saveall('pattern.svg',Screen()._canvas)
 exitonclick() 
