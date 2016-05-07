@@ -6,12 +6,12 @@ color=['red','green','blue','purple','yellow','orange']
 pegs=[n,0,0]
 pile=[[],[],[]]
 setworldcoordinates(-1,-1,3,n+1)
-tracer(0)
+speed(0)
 ht()
 for i in range(3):  
     for j in range(pegs[i],0,-1):
        t=Turtle(shape='square')
-       t.shapesize(5,3*j)
+       t.shapesize(3,j)
        t.pu()
        t.color(color[j-1])
        t.setx(i)
@@ -36,7 +36,7 @@ def hanoi(n,src,dest,aux):
        #print("to: ",pegs)
 
 steps=0
-hanoi(n,0,1,2)
+hanoi(n,0,2,1)
 update()
 print("Moving",n,"Pegs requires",steps,"steps")
 #exitonclick()
