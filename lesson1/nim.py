@@ -54,6 +54,7 @@ for i in range(len(start)):
 update()
 tracer(1)
 current_player='you'
+attractors =[(0,0,0),(1,2,3),(1,4,5),(2,4,6),(2,5,7)]
 
 def lookahead(situation):
      ordered=sort(situation)
@@ -73,7 +74,12 @@ def lookahead(situation):
      elif sorted[0:1]==[2,3]: return 'win'
      elif sorted==[2,4,5]: return 'win'     #1,4,5
      elif sorted==[2,4,6]: return 'lose'    #attractor
-     elif sorted==[2,4,7]: return 'win'     #2,4,6 
+     elif sorted[0:1]==[2,4]: return 'win'     #2,4,6 
+     elif sorted==[2,5,6]: return 'win'     #2,4,6
+     elif sorted[0:1]==[2,5,7]: return 'lose' 
+     elif sorted[0:1]==[2,5]: return 'win'  #2,5,7
+     elif sorted[0:1]==[2,6]: return 'win'  #2,6,4
+     elif sorted[0:1]==[2,7]: return 'win'  #2,7,5
            for i in range(1,sorted[2]):
                lookahead(sorted[
 
@@ -88,7 +94,8 @@ def calculate(sorted):
        if sorted[1]%2 & sorted[2]-sorted[1]==1: return 'lose'  #attractor
        else return 'win'
     elif sorted[0]==2:
-       if sorted[1]==4
+       if sorted[1]%2 & sorted[2]-sorted[1]==1: return 'win'  #attractor
+       if sorted[1]/2%2 & sorted[2]-sorted[1]==2: return 'lose'
 
 def analyse(current): 
    if (player)=='you': 
