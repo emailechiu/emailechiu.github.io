@@ -30,10 +30,12 @@ class piles():
               t.color('grey')
            current[self.y]=m
            analyse(current)
-
+           
 tracer(0)                     
 start=[1,2,3]
 start=[6,4,5]
+start=[3,5,6]
+start=[15,18,33]
 current=start
 nim=[1,2,3]
 def sort(a):
@@ -41,6 +43,16 @@ def sort(a):
     for i in range(len(a)):
        for j in range(i+1,len(a)):
          if a[b[i]]>a[b[j]]: t=b[i];b[i]=b[j];b[j]=t
+    print("ordered index =",b)
+    sorted=[a[c] for c in b]
+    print("sorted entry = " ,sorted)
+    return sorted
+
+def order(a):  #descending
+    b=[i for i in range(len(a))]
+    for i in range(len(a)):
+       for j in range(i+1,len(a)):
+         if a[b[i]]<a[b[j]]: t=b[i];b[i]=b[j];b[j]=t
     print("ordered index =",b)
     sorted=[a[c] for c in b]
     print("sorted entry = " ,sorted)
@@ -53,11 +65,31 @@ for i in range(len(start)):
     nim[i].init(start[i])
 update()
 tracer(1)
-current_player='you'
+player='you'
 attractors =[(0,0,0),(1,2,3),(1,4,5),(2,4,6),(2,5,7)]
 
+def nimsum(situation):
+    return reduce(lambda x,y:x^y,situation)
+
+def next(situation):
+    nims=nimsum(situation)
+    ordered=order(situation)
+    if nims!=0:        
+         sorted=[situation[ordered[i]] for i in range(len(situation))]
+         nextup=[situation[ordered[i]] ^ nims  for i in range(len(situation))]
+         for nextpile in range(len(situation)):
+             nextmove=nextup[nextpile]
+             print(nextpile,nextmove)
+             if situation[ordered[nextpile]]>nextmove:break        
+         for originalpile in range(len(situation)):
+             if ordered[originalpile]==nextpile: break
+    else:
+         originalpile=ordered[0]
+         nextmove=0
+    nim[originalpile].rm(nextmove)
+
 def lookahead(situation):
-     ordered=sort(situation)
+     ordered=order(situation)
      sorted=[situation[ordered[i]] for i in range(len(situation))]
      #if reduce(lambda x,y:x+y,current)==0: print('game over,you win')
      if sorted==[0,0,0]: return 'lose'
@@ -80,29 +112,32 @@ def lookahead(situation):
      elif sorted[0:1]==[2,5]: return 'win'  #2,5,7
      elif sorted[0:1]==[2,6]: return 'win'  #2,6,4
      elif sorted[0:1]==[2,7]: return 'win'  #2,7,5
-           for i in range(1,sorted[2]):
-               lookahead(sorted[
-
-        if current[ordered
-        #if 
+     else: return 'unknown'
      
 def calculate(sorted):
     if sorted[0]==0:
        if sorted[1]==sorted[2]: return 'lose'  # attractor
-       else return 'win'
+       else: return 'win'
     elif sorted[0]==1:
        if sorted[1]%2 & sorted[2]-sorted[1]==1: return 'lose'  #attractor
-       else return 'win'
+       else: return 'win'
     elif sorted[0]==2:
        if sorted[1]%2 & sorted[2]-sorted[1]==1: return 'win'  #attractor
        if sorted[1]/2%2 & sorted[2]-sorted[1]==2: return 'lose'
+       else: return 'unknown'
+    else: return 'unknown'
 
 def analyse(current): 
-   if (player)=='you': 
-        player='computer'; 
-        analyse(current)
-     write("computer's turn")
-     print(current)
-     write("your turn")
-analyse()
+   global player
+   print(current)
+   if reduce(lambda x,y:x+y,current)==0: print("game over", player,"win")
+   elif player=='you': 
+        player='computer'
+        print("computer's turn")
+        next(current)
+   elif player=='computer': 
+        player='you'
+        print("your turn")
+
+
 done()
