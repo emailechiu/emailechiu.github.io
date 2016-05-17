@@ -1,5 +1,6 @@
 from turtle import *
 from math import *
+from canvasvg import *
 s=Shape("compound")
 half_circle_steps=10
 color('blue','blue')
@@ -38,7 +39,7 @@ if 1:
     pencolor("green") #No effect on compount shapes
     pensize(4)
     radius=100
-    steps=6
+    steps=60
     step=2*pi*radius/steps
     shapesize(5,1,2)
 
@@ -58,4 +59,5 @@ if 1:
         #shapetransform(factorx*cos(i*tilt_radian),factory*sin(i*tilt_radian),-factorx*sin(i*tilt_radian),factory*cos(i*tilt_radian))
 
     update()
+    saveall("mobius.svg",Screen()._canvas)
     exitonclick()
