@@ -18,4 +18,7 @@ sudo apt-get install libsmpeg-dev libportmidi-dev libavformat-dev libswscale-dev
 python3 setup.py build
 sudo python3 setup.py install
 
-
+#when git non-fast-forward updates were rejected
+git fetch origin
+git merge origin origin
+git push origin master
