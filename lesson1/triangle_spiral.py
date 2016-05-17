@@ -1,4 +1,5 @@
 from turtle import *
+from canvasvg import *
 radians()
 from math import *
 shape('triangle')
@@ -18,3 +19,5 @@ for i in range(20):
    s *=calc_f
    c *=calc_f
    rt(calc_phi)
+
+saveall("triangle_spiral.svg",Screen()._canvas)

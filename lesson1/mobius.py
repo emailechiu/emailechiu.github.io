@@ -1,6 +1,7 @@
 from turtle import *
 from math import *
 from canvasvg import *
+mode("logo")
 s=Shape("compound")
 half_circle_steps=10
 color('blue','blue')
@@ -39,14 +40,14 @@ if 1:
     pencolor("green") #No effect on compount shapes
     pensize(4)
     radius=100
-    steps=60
+    steps=40
     step=2*pi*radius/steps
     shapesize(5,1,2)
 
 if 1:
     #factorx=5
     #factory=1
-    tilt_rotate_factor=0
+    tilt_rotate_factor=1.5
     rotate_degree=360/steps
     tilt_degree=rotate_degree*tilt_rotate_factor
     tilt_radian=radians(tilt_degree)

@@ -38,6 +38,10 @@ def jump(x,y):
       pd()
       print("jump to",x,y,pencolor(),pensize())
 
+def point(x,y):
+      MrPink.seth(MrPink.towards(x,y))
+      MrPink.fd(abs(MrPink.pos()-Vec2D(x,y))/2)
+
 def f():
     fd(50)
     rt(60)
@@ -50,12 +54,13 @@ listen()
 onkey(f,'a')
 onkey(s,'s')
 onscreenclick(jump)
+onscreenclick(point,3)
 ondrag(goto)
 
 MrRed = MyTurtle('red',2,-400,200,'circle')
 MrGreen = MyTurtle('green',1.5,-400,100,'triangle')
 MrBlue = MyTurtle('blue',1,-400,40,'square')
-MrPink = MyTurtle('pink',0.5,-400,10,'turtle')
+MrPink = MyTurtle('pink',2,-400,10,'turtle')
 
 done()
 

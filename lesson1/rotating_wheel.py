@@ -1,5 +1,6 @@
 from turtle import *
 from math import *
+from canvasvg import *
 mode("logo")
 #register_shape("cat.gif")
 #shape("cat.gif")
@@ -52,6 +53,6 @@ for i in range(n):
    setx(-200+i*radians(360/n)*10*10)
    handle.setx(-100+i*radians(360/n)*10*10)
    puller.setx(i*radians(360/n)*10*10)
-   
+saveall("rotating_wheel.svg",Screen()._canvas)   
 #done()
 
