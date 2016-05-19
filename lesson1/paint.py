@@ -49,10 +49,29 @@ def f():
 def s():
     saveall('paint.svg',Screen()._canvas)
 
+def up():
+    seth(90)
+    fd(1)
+def down():
+    seth(-90)
+    fd(1)
+def left():
+    seth(180)
+    fd(1)
+def right():
+    seth(0)
+    fd(1)
+
+ 
+
 shape('circle')
 listen()
 onkey(f,'a')
 onkey(s,'s')
+onkey(up,'Up')
+onkeypress(down,'Down')
+onkeyrelease(left,'Left')
+onkey(right,'Right')
 onscreenclick(jump)
 onscreenclick(point,3)
 ondrag(goto)

@@ -1,11 +1,16 @@
-from turtle import *
-from math import *
+usebg=0
+if usebg:
+    from gridbg import *
+else:
+    from turtle import *
+    from math import *
+    bgpic('grid.gif')
+    mode("logo")
+
 from canvasvg import *
-mode("logo")
 #register_shape("cat.gif")
 #shape("cat.gif")
 shape("circle")
-
 
 def myshape(code):
     home()
@@ -28,7 +33,7 @@ s=Shape("compound")
 s.addcomponent(myshape("fd(10);lt(90);circle(10,180)"),"red","blue")
 s.addcomponent(myshape("fd(10);lt(90);circle(10,-180)"),"blue","red")
 register_shape("moon",s)
-clearscreen()
+
 shape("moon")
 shapesize(10)
 
