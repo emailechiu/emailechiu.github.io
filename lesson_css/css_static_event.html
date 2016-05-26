@@ -1,0 +1,88 @@
+http://javascript.info/tutorial/animation: football bounce
+<style>
+body {
+    font-family: Arial;
+}
+p {
+    font-size: 1em;
+}
+.eye {
+    background-color:blue;
+    width:30%;
+    height:20%;
+    border-radius: 50%;
+}
+.arm {
+    background-color: #cacaca;
+    position: absolute;
+    top: 20%;
+    width: 5%;
+    height: 40%;
+}
+
+#head {
+    width:30%;
+    height:30%;
+    border-radius: 50%;
+    background-color: #dadada;
+    position: absolute;
+    left: 33%;
+    top: 5%;
+}
+#righteye {
+    position: absolute;
+    left: 20%;
+    top: 20%;
+}
+#lefteye {
+    position: absolute;
+    left: 60%;
+    top: 20%;
+}
+#nose {
+    position: absolute;
+    left: 45%;
+    top: 50%;
+    width: 10%;
+    height: 10%;
+    background-color: black;
+}
+#mouth {
+    position: absolute;
+    width: 65%;
+    height: 15%;
+    left: 20%;
+    top: 70%;
+    background-color: red;
+}
+#body {
+    position: absolute;
+    left: 25%;
+    top: 35%;
+    width: 45%;
+    height: 55%;
+    background-color: #dadada;
+    text-align:center;
+    padding-top: 30px;
+}
+
+#rightarm {
+    position:absolute;
+    left:20%;
+}
+#leftarm {
+    position: absolute;
+    left: 70%;
+}
+</style>                                     
+<div id="robot">
+<div id="head">
+    <div class="eye" id="righteye" onMouseover='document.getElementById("lefteye").style.height="5%"' onMouseout='document.getElementById("lefteye").style.height="20%"'}></div>
+    <div class="eye" id="lefteye"></div>
+    <div id="nose"></div>
+    <div id="mouth"></div>
+</div>
+<div class="arm" id="rightarm"></div>
+<div id="body"><p>Am I handsome? I need some exercise! </p></div>
+<div class="arm" id="leftarm"></div>
+</div>

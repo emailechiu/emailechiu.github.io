@@ -4,7 +4,7 @@ put vncserver under /etc/init.d
 sudo update-rc.d vncserver defaults
 put xstartup under ~/.vnc
 
-Install Pygame:
+Install Pygame/simplegui:
 # get pygame source code
 sudo apt-get install mercurial
 hg clone https://bitbucket.org/pygame/pygame
@@ -22,3 +22,15 @@ sudo python3 setup.py install
 git fetch origin
 git merge origin origin
 git push origin master
+
+#image convert: installed gimp,imagemagick
+
+
+#audio: audacity, mpg321 installed snd_bcm2835 
+amixer 
+aplay *.wav
+omxplayer -o local/hdmi *.mp3
+/usr/bin/qjackctl before audacity will play sound
+
+
+

@@ -1,0 +1,133 @@
+<style> 
+p {position:relative;} 
+.a {color: purple; background:green; position:relative; width:25px; height:25px;border-radius:50%;} 
+#bg { background: url("soccer.png"); background-repeat: no-repeat; background-size:50px 50px ; position:relative } 
+#fg {width:50px; height:50px ; position:relative } 
+#ball {color: purple; background:blue; position:relative; width:25px; height:25px;border-radius:50%;} 
+</style>
+<script> 
+
+function animate(opts) {
+  var start = new Date;
+  var id=setInterval(function() {
+  var progress = (new Date - start)/opts.duration 
+  var delta = opts.delta(progress)  
+  opts.step(delta);
+  if (progress>=1) clearInterval(id)
+   },opts.delay)
+}
+
+function bounce(e) {
+  var from={x:0,y:0}
+  var to = {x:50,y:100}
+  var p={x:0,y:0}
+  var v={x:0.25,y:0}
+  var rebounce_coef =0.8
+  var restart=0
+  var lastv=0
+  animate({
+    delay: 10,
+    duration: 1000,
+    delta: function(progress) {
+        if (p.y>=1) restart = progress
+        //p={x: if (e.style.left =='undefined') 0 else e.style.left , y: if (e.style.top=='undefined') 0 else e.style.top}
+        if (p.y>=1) { v.y=-v.y*rebounce_coef; lastv=v.y } else v.y=lastv+progress-restart
+        p={x: p.x+v.x, y: p.y+v.y}
+        //if (p.y<1-rebounce_coef*rebounce_coef & v.y<0) 
+            //   console.log("progress = "+ progress+" restart= "+restart +" v.y= "+v.y+" p.y= "+p.y)
+        return {x:p.x,y:p.y}},
+    step: function(delta) {
+	e.style.left= to.x*delta.x + to.x
+        e.style.top = to.y*delta.y + to.y
+    }
+  })
+}
+
+function plot(func) {
+  var canvas= document.getElementById("math_func")
+  var ctx=canvas.getContext("2d")
+  ctx.translate(0,canvas.height/2)  
+  ctx.lineWidth=canvas.height/2*0.01
+  ctx.strokeStyle="white"
+  ctx.moveTo(0,canvas.height/2*func(0))
+  for (var x=0; x<=1; x+=1/25) {
+	ctx.lineTo(canvas.width*x,canvas.height/2*func(x))
+        ctx.stroke()
+ }
+  ctx.translate(0,-canvas.height/2)  
+}
+
+function type(e) {
+  var str = e.innerHTML
+  animate({
+    delay: 40,
+    duration: 3200,
+    //delta: function(progress) {return {x:progress+ Math.sin(progress*2*Math.PI)/2,y:0}},
+    delta: function(progress) {return {x:6*progress - 15* Math.pow(progress,2) +10* Math.pow(progress,3),y:0}},
+    step: function(delta) { e.innerHTML = str.substr(0,delta.x * str.length) }
+   })
+}
+
+function ellipse(e) {
+  var from={x:0,y:0}
+  var to = {x:100,y:200}
+  animate({
+    delay: 40,
+    duration: 1000,
+    delta: function(progress) {return {x:Math.sin(progress*Math.PI*2),y:Math.cos(progress*Math.PI*2)}},
+    step: function(delta) {
+	e.style.left= to.x*delta.x + to.x
+        e.style.top = to.y*delta.y + to.y
+    }
+  })
+}
+
+
+function move_animate(e) {
+ var to = 10;
+ var t=0;
+ function animate() { 
+  //var duration=1000;
+  t++;
+  function progress(t) {return t;}
+  function delta(progress) {return 10* progress;}
+  function step(delta) { return Math.sin(delta*2* Math.PI); }
+  e.style.left=delta(progress(t));
+  e.style.top=10*step(delta(progress(t))/40);
+  //console.log("left =" + e.style.left)
+  //console.log("top =" + e.style.top)
+  if (t==to) clearInterval(animate);
+  }
+ setInterval(animate,40);
+}
+
+function move(e) {
+  var left=0;
+  var top=0;
+  function frame() { 
+   left+=5 
+   top+=5;
+   e.style.left=left 
+   e.style.top=top
+   if (left==100) clearInterval(id);
+   }
+  var id=setInterval(frame, 40);
+}
+
+function toyellow(e) {
+  var f=document.getElementsByTagName("div")[0];
+  var g=document.getElementsByClassName("a")[0];
+  var h=document.getElementById("demo");
+  h.style.color = "yellow";
+  f.style.background="yellow"
+}
+
+</script>
+<p id=ball onclick="ellipse(this)">Click to move in circle</p>
+<p id=bg onclick="type(this)">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat</p>
+<img src="soccer.png" id=fg onclick="bounce(this)">drop</img>
+<div onclick="move_animate(this)" class=a>bounce</div>
+<canvas id=math_func width=300px height=300px style="background:black" onclick="plot(function(x) {return Math.pow(x,3)})"></canvas>
+
+
+    
