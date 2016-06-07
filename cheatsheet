@@ -27,10 +27,22 @@ git push origin master
 
 
 #audio: audacity, mpg321 installed snd_bcm2835 
-amixer 
 aplay *.wav
 omxplayer -o local/hdmi *.mp3
 /usr/bin/qjackctl before audacity will play sound
+jackd
+bluetoothctl 
+hcitool scan
+pactl list cards short
+amixer cset numid=3
+pulseaudio -D
+pavucontrol
 
-
+# apt-get update public key error
+wget http://archive.raspbian.org/raspbian.public.key -O - | sudo apt-key add -
+gpg --keyserver keys.gnupg.net --recv-key 85A3D26506C4AE2A
+gpg -a --export 85A3D26506C4AE2A |sudo apt-key add -
+sudo apt-get clean
+sudo vi /etc/apt/sources.list
+sudo vi /etc/security/limits.d/audio.conf 
 
