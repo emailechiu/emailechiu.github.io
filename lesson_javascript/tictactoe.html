@@ -1,0 +1,81 @@
+<style>
+.button {float:left;height:30;width:30}
+</style>
+<button id=x1 class=button onclick=nextmove(this)></button>
+<button id=x2 class=button onclick=nextmove(this)></button>
+<button id=x3 class=button onclick=nextmove(this)></button>
+<p style="clear:both"></p>
+<button id=x1 class=button onclick=nextmove(this)></button>
+<button id=x2 class=button onclick=nextmove(this)></button>
+<button id=x3 class=button onclick=nextmove(this)></button>
+<p style="clear:both"></p>
+<button id=x1 class=button onclick=nextmove(this)></button>
+<button id=x2 class=button onclick=nextmove(this)></button>
+<button id=x3 class=button onclick=nextmove(this)></button>
+<p style="clear:both"></p>
+<p id=result></p>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+var val=[0,0,0,0,0,0,0,0,0]
+var ops={h1:[0,1,2],h2:[3,4,5],h3:[6,7,8],v1:[0,3,6],v2:[1,4,7],v3:[2,5,8],d1:[0,4,8],d2:[2,4,6]}
+function nextmove(elem) {
+	var x=document.getElementsByClassName("button")
+	for (var i=0; i<x.length;i++) {
+		if (x[i]==elem) { //your move, invalid move, or you win
+		    if (val[i]==0) { //valid move
+				elem.innerHTML="X"
+				if (make_move(i,-1)==0) {//not game end
+					//my move, game ends in draw before move, game ends in draw after move, I win
+					var mymove=find_best()
+					if (mymove>=0) { //can find a valid move
+						x[mymove].innerHTML="O"
+						if (make_move(mymove,1)>0) document.getElementById("result").innerHTML="I win after my turn"
+					}
+					else document.getElementById("result").innerHTML="game ends in draw after your turn"
+				}
+				else document.getElementById("result").innerHTML="you win after your turn!"
+			}
+			else document.getElementById("result").innerHTML="Invalid Square"
+		}	
+	}
+}
+
+
+
+function make_move(pos,value) {//returns 1 for game end, 0 for continue 
+ 	val[pos]=value
+	console.log(val)
+	if ((Math.abs(score_move(pos,value)))>2000) return 1; //end game after move
+	else return 0 //can be a draw to be found out later
+}
+
+function find_best() {
+    best_score=-999999
+	best_pos=-1
+	var current
+	console.log(val)
+	for (var i=0;i<val.length;i++) {
+	    if (val[i]==0 ){
+			current=score_move(i,1)
+			console.log(i,current)
+			if (current>best_score) {
+				best_pos=i
+				best_score=current
+			}
+		}
+    }
+
+	return best_pos;
+}
+
+function score_move(pos,value) {
+	var new_val=val.slice()
+	new_val[pos]=value
+	var score=0
+	for (var i in ops) {
+	    score+=metric(new_val[ops[i][0]],new_val[ops[i][1]],new_val[ops[i][2]]) }
+	return score
+}
+function metric(a,b,c) {return (a+b+c)*Math.pow(10,Math.abs(a+b+c))}
+</script>

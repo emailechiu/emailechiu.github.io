@@ -1,0 +1,76 @@
+var js_clock=document.createElement('canvas')
+js_clock.id='clock'
+js_clock.width=300
+js_clock.height=300
+js_clock.style='background:black'
+document.body.appendChild(js_clock)
+var canvas=document.getElementById("clock")
+var ctx= canvas.getContext("2d")
+var radius = 0.9*Math.min(canvas.width,canvas.height)/2
+var hands;
+ctx.font = radius*0.15 + 'px arial' 
+ctx.textAlign="center"
+ctx.textBaseline="middle"
+ctx.translate(canvas.width/2,canvas.height/2)
+startClock()
+
+function drawFace() {
+  ctx.beginPath()
+  ctx.arc(0,0,radius,0,2*Math.PI)
+  ctx.fillStyle="white" ;ctx.fill()
+
+  var grad = ctx.createRadialGradient(0,0,radius*0.95,0,0,radius*1.05)
+  grad.addColorStop(0,'black')
+  grad.addColorStop(0.5,'white')
+  grad.addColorStop(1,'black')
+  ctx.strokeStyle=grad
+  ctx.lineWidth=radius*0.1
+  ctx.stroke()  
+
+  ctx.beginPath()
+  ctx.arc(0,0,radius*0.1,0,2*Math.PI)
+  ctx.fillStyle="black";ctx.fill()
+}
+
+function drawNumber() {
+  for (var num=1; num<=12; num++) {
+	ctx.rotate(Math.PI/6)
+        ctx.translate(0,-radius*0.85)
+        ctx.rotate(-num*Math.PI/6)
+        ctx.fillText(num.toString(), 0,0)
+        ctx.rotate(num*Math.PI/6)
+        ctx.translate(0,radius*0.85)
+  }
+}
+
+function drawTime() {
+   var now=new Date()
+   var hour= now.getHours() %12
+   var minute = now.getMinutes()
+   var second = now.getSeconds()
+   drawHand(2*Math.PI/12*(hour + minute/60 + second/3600),radius*0.5,radius*0.07) 
+   drawHand(2*Math.PI/60*(minute + second/60),radius*0.6,radius*0.06) 
+   drawHand(2*Math.PI/60*second,radius*0.7,radius*0.03) 
+  } 
+
+function drawHand(ang,len,width) {
+   ctx.beginPath()
+   ctx.rotate(ang)
+   ctx.lineWidth =width 
+   ctx.lineCap = "round"
+   ctx.moveTo(0,0)
+   ctx.lineTo(0,-len)
+   ctx.stroke()
+   ctx.rotate(-ang)
+}
+
+function drawClock() {
+   drawFace()
+   drawNumber()
+   drawTime()
+}
+
+function startClock() { hands=setInterval(drawClock,1000) }
+function stopClock() {clearInterval(hands) }
+
+
