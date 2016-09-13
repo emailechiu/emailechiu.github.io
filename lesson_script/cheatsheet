@@ -1,3 +1,6 @@
+#sensehat
+git clone https://github.com/pi3d/pi3d_demos.git
+
 git fetch --all
 git reset --hard origin/master
 put vncserver under /etc/init.d
