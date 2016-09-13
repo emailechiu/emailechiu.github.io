@@ -2,6 +2,7 @@
 from sense_hat import SenseHat
 import math
 import pi3d
+from time import sleep
 pitch=0
 roll=0
 yaw=0
@@ -12,17 +13,15 @@ except:
 
 display = pi3d.Display.create()
 cam = pi3d.Camera.instance()
-
-shader = pi3d.Shader("mat_light")
-
-model = pi3d.Model(
-    file_string="apollo-soyuz.obj",
-    name="model", x=0, y=-1, z=40, sx=1, sy=1, sz=1)
-
-model.set_shader(shader)
-
 cam.position((0, 20, 0))
 cam.point_at((0, -1, 40))
+texture1=pi3d.Texture("./worldmap1.png")
+texture2=pi3d.Texture("./worldmap2.png")
+shader = pi3d.Shader("mat_light")
+#model = pi3d.Model( file_string="apollo-soyuz.obj",name="model", x=0, y=-1, z=40, sx=1, sy=1, sz=1)
+model = pi3d.Model( file_string="teapot.obj",name="model", x=0, y=-1, z=40, sx=1, sy=1, sz=1)
+#model.set_shader(shader)
+#model.set_textures([texture1,texture2])
 keyb = pi3d.Keyboard()
 
 compass = gyro = accel = True
@@ -40,9 +39,9 @@ while display.loop_running():
         roll = o["roll"]
         yaw = o["yaw"]
     except:
-        pitch += 10
-        roll += 10
-        yaw +=10 
+        pitch += 1
+        roll += 1
+        yaw +=1 
 
     yaw_total = yaw + math.radians(yaw_offset)
 
@@ -62,7 +61,7 @@ while display.loop_running():
     model.rotateToX(abs_pitch)
     model.rotateToY(math.degrees(yaw_total))
     model.draw()
-
+    sleep(1)
     keypress = keyb.read()
 
     if keypress == 27:
