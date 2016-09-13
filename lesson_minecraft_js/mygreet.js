@@ -1,0 +1,1 @@
+exports.greeting=function(player) { echo('Hi,'+ player.name) }
