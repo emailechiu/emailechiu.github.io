@@ -1,0 +1,45 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'search',
+1 verbose cli   'node-red' ]
+2 info using npm@2.14.7
+3 info using node@v4.2.1
+4 verbose config Skipping project config: /home/pi/.npmrc. (matches userconfig)
+5 silly mapToRegistry name -/all
+6 silly mapToRegistry using default registry
+7 silly mapToRegistry registry https://registry.npmjs.org/
+8 silly mapToRegistry uri https://registry.npmjs.org/-/all
+9 info updateIndex /home/pi/.npm/registry.npmjs.org/-/all/.cache.json
+10 warn Building the local index for the first time, please be patient
+11 silly update-index fetching https://registry.npmjs.org/-/all
+12 verbose request uri https://registry.npmjs.org/-/all
+13 verbose request no auth needed
+14 info attempt registry request try #1 at 22:23:06
+15 verbose request id 6b2acae39523640a
+16 http request GET https://registry.npmjs.org/-/all
+17 info retry will retry, error on last attempt: Error: getaddrinfo ENOTFOUND registry.npmjs.org registry.npmjs.org:443
+18 info attempt registry request try #2 at 22:23:37
+19 http request GET https://registry.npmjs.org/-/all
+20 info retry will retry, error on last attempt: Error: getaddrinfo ENOTFOUND registry.npmjs.org registry.npmjs.org:443
+21 info attempt registry request try #3 at 22:24:57
+22 http request GET https://registry.npmjs.org/-/all
+23 verbose stack Error: getaddrinfo ENOTFOUND registry.npmjs.org registry.npmjs.org:443
+23 verbose stack     at errnoException (dns.js:26:10)
+23 verbose stack     at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:77:26)
+24 verbose cwd /home/pi/emailechiu.github.io
+25 error Linux 4.4.13-v7+
+26 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "search" "node-red"
+27 error node v4.2.1
+28 error npm  v2.14.7
+29 error code ENOTFOUND
+30 error errno ENOTFOUND
+31 error syscall getaddrinfo
+32 error network getaddrinfo ENOTFOUND registry.npmjs.org registry.npmjs.org:443
+32 error network This is most likely not a problem with npm itself
+32 error network and is related to network connectivity.
+32 error network In most cases you are behind a proxy or have bad network settings.
+32 error network
+32 error network If you are behind a proxy, please make sure that the
+32 error network 'proxy' config is set properly.  See: 'npm help config'
+33 verbose exit [ 1, true ]

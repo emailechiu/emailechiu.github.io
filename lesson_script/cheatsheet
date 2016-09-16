@@ -1,3 +1,9 @@
+#3d
+sudo apt-get install gearny
+sudo apt-get install pi3d
+git clone https://github.com/pi3d/pi3d_demos.git
+sudo raspi-config #set mem to 128M
+
 git fetch --all
 git reset --hard origin/master
 put vncserver under /etc/init.d
