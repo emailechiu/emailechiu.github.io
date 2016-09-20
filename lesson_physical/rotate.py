@@ -12,23 +12,27 @@ except:
     sense=0
 
 display = pi3d.Display.create()
+light=pi3d.Light((0,0,-5),(0,0,5))
 cam = pi3d.Camera.instance()
-cam.position((0, 20, 0))
-cam.point_at((0, -1, 40))
-texture1=pi3d.Texture("./worldmap1.png")
-texture2=pi3d.Texture("./worldmap2.png")
-shader = pi3d.Shader("mat_light")
-#model = pi3d.Model( file_string="apollo-soyuz.obj",name="model", x=0, y=-1, z=40, sx=1, sy=1, sz=1)
-model = pi3d.Model( file_string="teapot.obj",name="model", x=0, y=-1, z=40, sx=1, sy=1, sz=1)
-#model.set_shader(shader)
-#model.set_textures([texture1,texture2])
+cam.position((10, 10, -10))
+cam.point_at((0, 0, 0))
+cam2d = pi3d.Camera(is_3d=False)
+texture1=pi3d.Texture("textures/PATRN.PNG")
+texture2=pi3d.Texture("worldmap2.png")
+texture3=pi3d.Texture("textures/Raspi256x256.png")
+shader = pi3d.Shader("uv_flat")
+model = pi3d.Model( file_string="apollo-soyuz.obj",name="model", x=0, y=0, z=0, sx=0.5, sy=0.5, sz=0.5)
+#model = pi3d.Model(file_string="models/teapot.obj",camera=cam,sx=2,sy=2,sz=2)
+#model.set_draw_details(shader,[texture2,texture1])
+model.set_shader(shader)
 keyb = pi3d.Keyboard()
-
+#model=pi3d.Sphere(z=0,sx=4,sy=4,sz=4)
+#model=pi3d.Cuboid(4,5,6)
 compass = gyro = accel = True
 if sense!=0: sense.set_imu_config(compass, gyro, accel)
 
-yaw_offset = 72
-
+#yaw_offset = 72
+#model.rotateToZ(-22.5)
 while display.loop_running():
     try: 
         o = sense.get_orientation_radians()
@@ -39,12 +43,14 @@ while display.loop_running():
         roll = o["roll"]
         yaw = o["yaw"]
     except:
-        pitch += 1
-        roll += 1
-        yaw +=1 
-
-    yaw_total = yaw + math.radians(yaw_offset)
-
+        yaw =math.radians(-45) #around y axis
+        pitch =math.radians(0) #around x axis
+        roll =math.radians(-20) #around z axis vertical
+        #yaw=int(input('yaw= ') )
+        #pitch=int(input('pitch= ') )
+        #roll=int(input('roll= ') )
+    
+    yaw_total=yaw
     sin_y = math.sin(yaw_total)
     cos_y = math.cos(yaw_total)
 
@@ -55,15 +61,22 @@ while display.loop_running():
     cos_r = math.cos(roll)
 
     abs_roll = math.degrees(math.asin(sin_p * cos_y + cos_p * sin_r * sin_y))
+    #if abs_roll<0: abs_roll=180-abs_roll
     abs_pitch = math.degrees(math.asin(sin_p * sin_y - cos_p * sin_r * cos_y))
+    #if abs_pitch<0: abs_roll=180-abs_pitch
 
+    model.rotateToY(math.degrees(yaw_total))
     model.rotateToZ(abs_roll)
     model.rotateToX(abs_pitch)
-    model.rotateToY(math.degrees(yaw_total))
-    model.draw()
-    sleep(1)
+    mytext=str(round(abs_roll,2))+" "+str(round(abs_pitch,2))+ " "+str(round(math.degrees(yaw_total),2))
+    str1=pi3d.FixedString('fonts/FreeSans.ttf',mytext,camera=cam2d,background_color=(200,140,20,235), font_size=32,shader=pi3d.Shader('uv_flat') ,f_type='SMOOTH')
+    str1.sprite.positionX(-300) 
+    str1.draw()
+    model.draw(shader,[texture2])
+    sleep(0.1)
     keypress = keyb.read()
-
+    try:
+       sense.setpixel 
     if keypress == 27:
         keyb.close()
         display.destroy()
