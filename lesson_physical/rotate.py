@@ -17,9 +17,9 @@ cam = pi3d.Camera.instance()
 cam.position((10, 10, -10))
 cam.point_at((0, 0, 0))
 cam2d = pi3d.Camera(is_3d=False)
-texture1=pi3d.Texture("textures/PATRN.PNG")
+texture1=pi3d.Texture("worldmap.jpg")
 texture2=pi3d.Texture("worldmap2.png")
-texture3=pi3d.Texture("textures/Raspi256x256.png")
+texture3=pi3d.Texture("worldmap1.png")
 shader = pi3d.Shader("uv_flat")
 model = pi3d.Model( file_string="apollo-soyuz.obj",name="model", x=0, y=0, z=0, sx=0.5, sy=0.5, sz=0.5)
 #model = pi3d.Model(file_string="models/teapot.obj",camera=cam,sx=2,sy=2,sz=2)
@@ -68,15 +68,16 @@ while display.loop_running():
     model.rotateToY(math.degrees(yaw_total))
     model.rotateToZ(abs_roll)
     model.rotateToX(abs_pitch)
-    mytext=str(round(abs_roll,2))+" "+str(round(abs_pitch,2))+ " "+str(round(math.degrees(yaw_total),2))
+    #mytext=str(round(abs_roll,2))+" "+str(round(abs_pitch,2))+ " "+str(round(math.degrees(yaw_total),2))
+    mytext=str(round(math.degrees(roll),2))+" "+str(round(math.degrees(pitch),2))+ " "+str(round(math.degrees(yaw),2))
     str1=pi3d.FixedString('fonts/FreeSans.ttf',mytext,camera=cam2d,background_color=(200,140,20,235), font_size=32,shader=pi3d.Shader('uv_flat') ,f_type='SMOOTH')
     str1.sprite.positionX(-300) 
     str1.draw()
     model.draw(shader,[texture2])
     sleep(0.1)
     keypress = keyb.read()
-    try:
-       sense.setpixel 
+    #try:
+    #   sense.setpixel 
     if keypress == 27:
         keyb.close()
         display.destroy()
