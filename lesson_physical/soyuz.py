@@ -2,6 +2,7 @@
 from sense_hat import SenseHat
 import math
 import pi3d
+from time import sleep
 
 sense = SenseHat()
 
@@ -21,9 +22,13 @@ cam.point_at((0, -1, 40))
 keyb = pi3d.Keyboard()
 
 compass = gyro = accel = True
-sense.set_imu_config(compass, gyro, accel)
 
-yaw_offset = 72
+#sense.set_imu_config(compass, gyro, accel)
+sense.set_imu_config(False, True, False )
+pitch=math.pi/4
+roll=0
+yaw=0
+yaw_offset = 0
 
 while display.loop_running():
     o = sense.get_orientation_radians()
@@ -33,7 +38,7 @@ while display.loop_running():
     pitch = o["pitch"]
     roll = o["roll"]
     yaw = o["yaw"]
-
+    #roll +=math.pi/180
     yaw_total = yaw + math.radians(yaw_offset)
 
     sin_y = math.sin(yaw_total)
@@ -52,7 +57,7 @@ while display.loop_running():
     model.rotateToX(abs_pitch)
     model.rotateToY(math.degrees(yaw_total))
     model.draw()
-
+    #sleep(1)
     keypress = keyb.read()
 
     if keypress == 27:
