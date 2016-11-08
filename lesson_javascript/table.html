@@ -1,0 +1,19 @@
+<body>
+<table>
+</table>
+</body>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script>
+var matrix = [
+  [11975,  5871, 8916],
+  [ 1951, 10048, 2060],
+  [ 8010, 16145, 8090],
+  [ 1013,   990,  940]
+];
+d3.select('table')
+.selectAll('tr').data(matrix).enter().append('tr')
+//.datum(matrix).append('tr')
+.selectAll('td').data(function(d){return d}).enter().append('td')
+//.datum(function(d){return d}).append('td')
+.text(function(d) {return d})
+</script>

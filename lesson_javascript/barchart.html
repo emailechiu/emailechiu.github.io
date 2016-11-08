@@ -1,0 +1,36 @@
+<body>
+</body>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script>
+var size=40
+var data=Array(10).fill([1,2,3,4,5,6,7,8,9,10,11,12])
+var offset=size/2
+//d3.select('body').append('svg').attr('width',600).attr('height',800).selectAll('rect').data(data).enter().append('rect').attr('height',10).attr('y',function(d){return 10*d}).attr('width',function(d){return 10*d}).attr('fill','blue').attr('stroke','black')
+
+d3.select('body').append('svg').attr('width',size+size*data[0].length).attr('height',size+size*data.length)
+.selectAll('rect').data(data).enter().append('g').attr('transform',function(d,i) {return 'translate('+ i%2*offset + ')'})
+.selectAll('g').data(function(d,i) {return d.map(function(e,index) {return [e,i]}) }).enter().append('rect')
+.attr('height',size).attr('x',function(d){return size*d[0]}).attr('width',size).attr('y',function(d) {return size*d[1]})
+.attr('fill',function(d,i) {return d3.rgb(i%2*255,i%2*255,i%2*255)}).attr('stroke','red')
+
+
+var outerOuter=d3.select('body').append('defs').append('svg').attr('id','#rotatecircle').attr('width',size+size*data[0].length).attr('height',size+size*data.length).append('g').attr('transform','translate(250,200)')
+var outerFrame=outerOuter.append('g')
+var outerCircle=outerFrame.append('circle').attr('cx',0).attr('cy',0).attr('r',size*5).attr('fill','green')
+var outerLine=outerFrame.append('path').attr('d','M'+ -5*size + ' 0 L' + 5*size + ' 0').attr('stroke','black')
+var innerFrame=outerFrame.append('g').attr('transform','translate('+size*2.5+',0)')
+var innerCircle=innerFrame.append('circle').attr('cx',0).attr('cy',0).attr('r',size*2.5).attr('fill','red')
+var innerDot=innerFrame.append('circle').attr('cx',2.5*size).attr('cy',0).attr('r',size/10).attr('fill','blue')
+d3.select('body').append('use').attr('x',0).attr('y',500).attr('xlink:href','#rotatecircle')
+d3.interval(
+	function(){
+	innerCircle.attr('transform','rotate('+ Date.now()/1000%60*60+')')
+	innerDot.attr('transform','rotate('+ Date.now()/1000%60*60+')')
+	outerFrame.attr('transform','rotate('+ -Date.now()/1000%60*30+')')
+	outerCircle.attr('transform','rotate('+ Date.now()/1000%60*30+')')
+	outerLine.attr('transform','rotate('+ Date.now()/1000%60*30+')')
+	}
+)
+
+
+</script>

@@ -1,0 +1,58 @@
+<body>
+<svg width="600" height="600" >
+<-!rect width=500 height=500 style="fill:rgb(0,0,255);stroke-width:10;stroke:rgb(255,0,0)"/->
+<path d="M 250 0 A 250 250 0 0 1 500 250 l -50 0 A 200 200 0 0 0 250 50Z" transform="translate(300 300)" fill="red"/>
+</svg>
+</body>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<-!script src="https://d3js.org/d3.v3.min.js"></script->
+<script>
+var R=250
+var second;
+var x,y,x1,y1;
+var secondhand=d3.select('path')
+
+
+d3.interval(function() {
+second=Math.round(Date.now()/1000)%60
+angle=second/60*2*Math.PI
+secondhand.attr('d',d3.arc()
+.innerRadius(200)
+.outerRadius(250)
+.startAngle(0)
+.endAngle(angle))
+.style("fill", "orange")
+.transition()
+.style("fill", "red")
+.duration(400)
+},1000)
+
+function usepath() {
+	second=Math.round(Date.now()/1000)%60
+	angle=second/60*2*Math.PI
+	x=Math.round(250*(1+Math.cos(angle))+50)
+	y=Math.round(250*(1+Math.sin(angle))+50)
+	x1=Math.round(200*(1+Math.cos(angle))+100)
+	y1=Math.round(200*(1+Math.sin(angle))+100)
+	secondhand
+	.attr('d',"M300 50 A 250 250 0 0 1 " + x+" "+y+ " L "+ x1+" "+y1+" A 200 200 0 0 0 300 100Z" )
+	//.attr('d',"M 250 0 A 250 250 0 0 1 500 250 l -50 0 A 200 200 0 0 0 250 50Z") 
+	.attr('fill','red')
+}
+
+var matrix = [
+  [11975,  5871, 8916],
+  [ 1951, 10048, 2060],
+  [ 8010, 16145, 8090],
+  [ 1013,   990,  940]
+];
+
+var tr = d3.select("body").append("table").selectAll("tr")
+    .data(matrix)
+  .enter().append("tr");
+
+var td = tr.selectAll("td")
+    .data(function(d) { return d; })
+  .enter().append("td")
+    .text(function(d) { return d; });
+</script>

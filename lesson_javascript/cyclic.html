@@ -1,0 +1,93 @@
+<form>
+  <input type="radio" name="reference" id="ref-annulus">
+  <label for="ref-annulus">Annulus</label><br>
+  <input type="radio" name="reference" id="ref-planet" checked>
+  <label for="ref-planet">Planets</label><br>
+  <input type="radio" name="reference" id="ref-sun">
+  <label for="ref-sun">Sun</label>
+</form>
+<body>
+<svg width="1000" height="600">
+    <text x=0 y=10>1</text>
+	<g transform="translate(500,300)">
+		<text x=0 y=0>I</text>
+		<g id="frame">
+			<text x=0 y=0>O</text>		
+			<g>
+				<path stroke=black fill=transparent />
+			</g>
+			<g id=1 transform="translate(0,-150)">
+				<path stroke=black fill=transparent />
+			</g>
+			<g id=2 transform="translate(-130,75)" >
+				<path stroke=black fill=transparent />
+			</g>
+			<g id=3 transform="translate(130,75)" >
+				<path stroke=black fill=transparent />
+				<circle cx=50 cy=0 r=5 stroke=black />
+			</g>
+			<g>
+				<path stroke=black fill=transparent />
+			</g>	
+		</g>
+	</g>
+</svg>
+</body>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script>
+var dis=0
+var start=Date.now()
+var offset=0
+var speed=10
+var data=[{teeth:50,radius:-250,annulus:true},{teeth:20,radius:-100},{teeth:20,radius:-100},{teeth:20,radius:-100},{teeth:10,radius:50,sun:true}]
+var frame=d3.select('g').select('g').datum({radius:Infinity}) //rotate all 3 planets
+
+d3.selectAll("input[name=reference]")
+    .data([250, Infinity, -50])
+    .on("change", function(radius1) {
+     var radius0 = frame.datum().radius, angle = (Date.now() - start) * speed;
+     frame.datum({radius: radius1});
+     frame.attr("transform", "rotate(" + (offset += angle / radius0 - angle / radius1) + ")");
+    });
+d3.selectAll('path').data(data).attr('d',gear)
+
+d3.interval(function() {
+	var angle = (Date.now() - start) * speed,
+      transform = function(d) { return "rotate(" + angle / d.radius + ")"; };
+	dis = (Date.now() - start)* speed
+	//frame.attr("transform","rotate("+frameangle+")")
+	frame.attr("transform",rot)
+	frame.selectAll('path').attr('transform',rot)
+	frame.selectAll('circle').datum({radius:-100}).attr('transform',rot)
+	//path.attr("transform","rotate("+angle+") "+"translate(320,320)") //first rotate, then translate
+	//path.attr("transform","rotate("+planetangle+")") //first translate then rotate
+	//console.log(angle)
+	},100)
+
+function rot(d) {
+	return "rotate(" + dis/d.radius+ ")"
+}
+
+function gear(d) {
+  var n = d.teeth,
+      r2 = Math.abs(d.radius),
+      r0 = r2 - 8,
+      r1 = r2 + 8,
+      r3 = d.annulus ? (r3 = r0, r0 = r1, r1 = r3, r2 + 20) : 20,
+      da = Math.PI / n,
+      a0 = -Math.PI / 2 + (d.annulus ? Math.PI / n : 0),
+      i = -1,
+      path = ["M", r0 * Math.cos(a0), ",", r0 * Math.sin(a0)];
+  while (++i < n) path.push(
+      "A", r0, ",", r0, " 0 0,1 ", r0 * Math.cos(a0 += da), ",", r0 * Math.sin(a0),
+      "L", r2 * Math.cos(a0), ",", r2 * Math.sin(a0),
+      "L", r1 * Math.cos(a0 += da / 3), ",", r1 * Math.sin(a0),
+      "A", r1, ",", r1, " 0 0,1 ", r1 * Math.cos(a0 += da / 3), ",", r1 * Math.sin(a0),
+      "L", r2 * Math.cos(a0 += da / 3), ",", r2 * Math.sin(a0),
+      "L", r0 * Math.cos(a0), ",", r0 * Math.sin(a0));
+  path.push("M0,", -r3, "A", r3, ",", r3, " 0 0,0 0,", r3, "A", r3, ",", r3, " 0 0,0 0,", -r3, "Z");
+  path.push("M0, ",r3," L","0,",r0)
+  return path.join("");
+}
+</script>
+
