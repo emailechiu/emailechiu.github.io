@@ -1,0 +1,36 @@
+ <style>
+ body {background-color:black}
+ circle {stroke-width: 2.5px}
+ </style>
+ <body>
+ <svg width="960" height="500">
+
+ </svg>
+ </body>
+ <script src="https://d3js.org/d3.v4.min.js"></script>
+ <script>
+ var i = 0;
+ var myd3=d3.select("svg")
+ //myd3.on("mousedown", function() {console.log("mousemoved")});
+ //myd3.on("mousemove",particle)
+d3.select("svg").on("mousemove",particle)
+ 
+ function particle() {
+ var m = d3.mouse(this);
+ d3.select("svg")
+ .append("circle")
+ .attr("cx",m[0]).attr("cy",m[1])      
+ .style("stroke", d3.hsl((i = (i + 1) % 360), 1, .5))
+ //.style("stroke","red")
+ .style("stroke-opacity", 1)
+ //.attr("r",function(d){return d})
+ .attr("r",1e-6)
+ .transition()
+ .attr("r",100)
+ .style("stroke-opacity", 1e-6)
+ .duration(2000)
+ .remove()
+ //d3.event.preventDefault();
+ console.log(Date.now(),i,m[0],m[1])
+ }
+ </script>

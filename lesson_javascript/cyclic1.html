@@ -1,0 +1,103 @@
+<style>
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  width: 960px;
+  height: 500px;
+  position: relative;
+}
+
+form {
+  position: absolute;
+  top: 1em;
+  left: 1em;
+}
+
+path {
+  fill-rule: evenodd;
+}
+
+.sun path {
+  fill: #6baed6;
+}
+
+.planet path {
+  fill: #9ecae1;
+}
+
+.annulus path {
+  fill: #c6dbef;
+}
+
+</style>
+<body>
+<svg width="960" height="520">
+    <text x=0 y=10>1</text>
+	<g transform="translate(480,260)">
+		<text x=0 y=0>I</text>
+		<g transform="rotate(0)">		
+			<text x=0 y=0>O</text>
+			<path transform="rotate(0) translate(-150,0) rotate(0)" stroke=black fill="red"/>
+			<path transform="rotate(120) translate(-150,0) rotate(0)" stroke=black fill="green"/>
+			<path transform="rotate(-120) translate(-150,0) rotate(0)" stroke=black fill="blue"/>
+		</g>
+	</g>
+</svg>
+</body>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script>
+var frameangle=0;
+var planetangle=0;
+var R=520/2-10
+var r=Math.floor(R/5)
+
+data=[{id:1,teeth:Math.floor(2*r/5),radius:2*r},{id:2,teeth:Math.floor(2*r/5),radius:2*r},{id:3,teeth:Math.floor(2*r/5),radius:2*r}]
+/*
+frame=d3.select('g').append('g') //rotate all 3 planets
+planet=frame.data(data).enter().append('g')
+planet.attr("transform",function(d) {
+		console.log("myid is", d.id)
+		if (d.id==1) return('translate('+ -3/2*d.radius+',0)')
+		else if (d.id==2) return('translate('+3/2*d.radius*Math.cos(Math.PI/3)+','+ -3/2*d.radius*Math.sin(Math.PI/3)+')')
+		else if (d.id==3) return('translate('+3/2*d.radius*Math.cos(Math.PI/3)+','+ 3/2*d.radius*Math.sin(Math.PI/3)+')')
+	}
+)
+path=planet.selectAll('path').data(data).enter().append('path').attr('d',gear).style("fill","orange")
+*/
+/***********************************************************************/
+console.log("Using brute force rotate frame + rotate 0/120/240 translate 300 rotate planet")
+d3.selectAll('path').data(data).attr('d',gear)
+
+d3.interval(function() {
+	frameangle+=360/32/2
+	planetangle+=360/32
+	//frame.attr("transform","rotate("+frameangle+")")
+	d3.select('g').select('g').attr("transform","rotate("+frameangle+")")
+	//path.attr("transform","rotate("+angle+") "+"translate(320,320)") //first rotate, then translate
+	//path.attr("transform","rotate("+planetangle+")") //first translate then rotate
+	//console.log(angle)
+	}, 1000)
+
+function gear(d) {
+  var n = d.teeth,
+      r2 = Math.abs(d.radius),
+      r0 = r2 - 8,
+      r1 = r2 + 8,
+      r3 = d.annulus ? (r3 = r0, r0 = r1, r1 = r3, r2 + 20) : 20,
+      da = Math.PI / n,
+      a0 = -Math.PI / 2 + (d.annulus ? Math.PI / n : 0),
+      i = -1,
+      path = ["M", r0 * Math.cos(a0), ",", r0 * Math.sin(a0)];
+  while (++i < n) path.push(
+      "A", r0, ",", r0, " 0 0,1 ", r0 * Math.cos(a0 += da), ",", r0 * Math.sin(a0),
+      "L", r2 * Math.cos(a0), ",", r2 * Math.sin(a0),
+      "L", r1 * Math.cos(a0 += da / 3), ",", r1 * Math.sin(a0),
+      "A", r1, ",", r1, " 0 0,1 ", r1 * Math.cos(a0 += da / 3), ",", r1 * Math.sin(a0),
+      "L", r2 * Math.cos(a0 += da / 3), ",", r2 * Math.sin(a0),
+      "L", r0 * Math.cos(a0), ",", r0 * Math.sin(a0));
+  path.push("M0,", -r3, "A", r3, ",", r3, " 0 0,0 0,", r3, "A", r3, ",", r3, " 0 0,0 0,", -r3, "Z");
+  path.push("M0, ",r3," L","0,",r0)
+  return path.join("");
+}
+</script>
+

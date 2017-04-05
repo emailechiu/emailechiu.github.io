@@ -1,0 +1,60 @@
+<svg width=300 height=300>
+	<g transform="translate(150,150)" background-color=black>
+		<text>
+			<textPath xlink:href="#arc1" text-anchor="middle" startOffset=20% >
+			1234567890	
+			</textPath>
+	   </text>
+	   
+	</g>
+</svg>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script>
+var arcBody=d3.arc().endAngle(function(d) {return d}).startAngle(0).innerRadius(80).outerRadius(92)
+var lineBody=d3.line().x(30).y(function(d) {return d})
+var myarc=d3.select('g').append('path').attr('id','arc1').attr('style',"fill:red");
+//myarc.datum(d).transition().attrTween('d',arcTween(arcBody)).duration(500)
+
+/* Per millisecond simulates the transition analog effect 
+d3.timer(
+	function() {
+		var d3ms =d3.scaleLinear().domain([0,60000]).range([0,2*Math.PI])
+		myarc.datum(d3ms(Date.now()%60000))
+		.attr('d',arcBody)
+		}
+)  */
+
+/* Per second discrete
+d3.timer(
+	function() {
+		var d3second =d3.scaleLinear().domain([0,60]).range([0,2*Math.PI])
+		myarc.datum(d3second(d3.timeSecond(Date.now()).getSeconds()))
+		.attr('d',arcBody)
+		}
+) */
+
+/* transition effect */
+d3.interval(
+	function() {
+	//myarc.datum(d3.timeSecond(Date.now()).getSeconds())
+	var d3second =d3.scaleLinear().domain([0,60]).range([0,2*Math.PI])
+	var angle=d3second(d3.timeSecond(Date.now()).getSeconds())
+	myarc
+	//.attr('d',d3.arc().innerRadius(60).outerRadius(70).startAngle(0).endAngle(angle)) //no datum
+	.datum(angle)
+	//.attr('d',d3.arc().innerRadius(60).outerRadius(70).startAngle(0).endAngle(function(d) {return d})) //datum plus anonymous function on d
+	//.attr('d',arcBody)  // OR datum with function name
+	.transition().attrTween('d',arcTween(arcBody)).duration(5000)  //for transition only attrTween is needed, no need for attr
+	},5000
+)
+function arcTween(arc) {
+	return function(d) {
+		var i=d3.interpolateNumber(d,d+Math.PI/30)
+		return function(t) {
+			d=i(t)
+			return arc(d)
+			}
+		}
+}
+
+</script>
