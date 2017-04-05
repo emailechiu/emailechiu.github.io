@@ -1,3 +1,9 @@
+ports:
+80 webcam RPI
+1234 ~/Downloads/getting-started-with-webRTC, node webRTC.js does not work yet
+apprtc.appspot.com webRTC works
+1880: node-red-start
+8081: https://scottontechnology.com/raspberry-pi-webcam-server-using-motion/ does not work 
 #3d
 sudo apt-get install gearny
 sudo apt-get install pi3d
